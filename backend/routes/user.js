@@ -13,7 +13,7 @@ const multer = require("../middleware/multer-config"); // Permet d'envoyer un fi
 router.post("/signup", userCtrl.signup);
 router.post("/login", userCtrl.login);
 
-//router.delete("/delete", auth, userCtrl.delete);
+router.delete("/deleteProfile", auth, userCtrl.deleteProfile);
 
 //router.get("/:id/profile", auth, userCtrl.profile);
 

@@ -25,8 +25,13 @@ exports.signup = async (req, res, next) => {
     if(!regexEmail.test(req.body.email)){
         return res.status(400).json({ error: "Email incorrect" });
     }
-    //if(mdp)
-    //if(1 champs manquant)
+    //if(mdp)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (
+        req.body.email == "" || req.body.name == "" || req.body.firstname == "" || req.body.password == "") {
+        return res
+          .status(400)
+          .json({ error: "Merci de remplir tous les champs !" });
+      }
 
 
     bcrypt.hash(req.body.password, 10) /*on hash le mdp et on execute 10 fois l'algorithme*/
@@ -44,7 +49,7 @@ exports.signup = async (req, res, next) => {
               isAdmin: user.isAdmin,
             });
       });
-        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))/*201 création de ressources*/
+        then(() => res.status(201).json({ message: 'Utilisateur créé !' }))/*201 création de ressources*/
         .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));/*500 erreur serveur*/
@@ -84,9 +89,30 @@ if (req.body.email == null || req.body.password == null) {
 };
 //----------------------------------------------------------------------------------------------------------------------
 //DELETE
-exports.delete = (req, res, next) => {
-
-}
+exports.deleteProfile = (req, res, next) => {
+    models.User.findOne({ _id: req.params.id })
+        .then((user) => {
+          if (user.id === userId) {
+            user
+              .destroy()
+              .then(() => {
+                res.status(200).json({
+                  message: "Profil supprimé !",
+                });
+              })
+              .catch((error) => {
+                res.status(400).json({
+                  error: "Le profil n'a pas pu être supprimé !",
+                });
+              });
+          }
+        })
+        .catch((error) => {
+          res.status(400).json({
+            error: "Le profil n'a pas pu être supprimé !",
+          });
+        });
+    };
 //----------------------------------------------------------------------------------------------------------------------
 //PROFILE
 exports.profile = (req, res, next) => {
