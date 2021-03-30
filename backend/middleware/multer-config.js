@@ -1,15 +1,12 @@
 // MODULES
 const multer = require('multer');
-// FIN MODULES
 
-// TYPE MIME
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
   'image/png': 'png',
   'image/gif': 'gif'
 };
-// FIN DICTIONNAIRE
 
 // FONCTION STORAGE
 const storage = multer.diskStorage({ // Configure multer
@@ -22,6 +19,5 @@ const storage = multer.diskStorage({ // Configure multer
     callback(null, name + Date.now() + '.' + extension); // Génère le nom unique
   }
 });
-// FIN FONCTION
 
 module.exports = multer({storage: storage}).single('image');
