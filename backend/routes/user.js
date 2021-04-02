@@ -12,11 +12,9 @@ const multer = require("../middleware/multer-config"); // Permet d'envoyer un fi
 // ROUTE
 router.post("/signup", userCtrl.signup);
 router.post("/login", userCtrl.login);
-
-router.delete("/deleteProfile", auth, userCtrl.deleteProfile);
-
-//router.get("/:id/profile", auth, userCtrl.profile);
-
-//.put("/modify", auth, multer, userCtrl.modify);
+router.get("/profile/:id", auth, userCtrl.getOneProfile);
+//router.get("/profile/:id/messages", auth, userCtrl.getAllMessagesProfile);
+//router.put("/profile/:id", auth, userCtrl.modifyProfile);
+router.delete("/profile/:id", auth, userCtrl.deleteProfile);
 
 module.exports = router;

@@ -25,7 +25,9 @@ exports.signup = async (req, res, next) => {
     if(!regexEmail.test(req.body.email)){
         return res.status(400).json({ error: "Email incorrect" });
     }
-    //if(mdp)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (!schema.validate(req.body.password)) {
+        res.status(400).json({ error: "le mot de passe doit contenir au moins 8 caractères dont 1 chiffre, 1 lettre majuscule et 1 minuscule" });
+    }
     if (
         req.body.email == "" || req.body.name == "" || req.body.firstname == "" || req.body.password == "") {
         return res
@@ -88,7 +90,51 @@ if (req.body.email == null || req.body.password == null) {
   .catch(error => res.status(500).json({ error }));/*erreur serveur*/
 };
 //----------------------------------------------------------------------------------------------------------------------
-//DELETE
+exports.getOneProfile = (req, res, next) => {
+    models.User.findOne({ attributes: ["id", "email", "name", "firstname"], where: { id: req.params.id }})
+      .then((user) => {
+        res.status(200).json(user);
+      })
+      .catch((error) => {
+        res.status(404).json({
+          error: error,
+          message: "Utilisateur non trouvé !",
+        });
+      });
+  };
+//----------------------------------------------------------------------------------------------------------------------
+exports.modifyProfile = (req, res, next) => {
+
+    models.User.findOne({where: { id: req.params.id }})
+    .then((user) => {
+    if (user.id === userId) {
+      user
+        .update({
+          name: req.body.name,
+          firstname: req.body.firstname,
+        })
+        .then(() => res.status(200).json({ message: "Profile modifié !" }))
+        .catch((error) =>
+          res
+            .status(400)
+            .json({ error: "Impossible de mettre à jour votre profile !" })
+        );
+    }
+  });
+};
+//----------------------------------------------------------------------------------------------------------------------
+exports.getAllMessagesProfile = (req, res, next) => {
+    models.Message.findAll({order: [["updatedAt", "DESC"]],attributes: ["id", "idUsers", "title", "content", "image", "createdAt", "updatedAt",], where: { idUsers: userId }})
+        .then((messages) => {
+          res.status(200).json(messages);
+        })
+        .catch((error) => {
+          res.status(400).json({
+            error: error,
+          });
+        });
+    };
+//----------------------------------------------------------------------------------------------------------------------
 exports.deleteProfile = (req, res, next) => {
     models.User.findOne({ _id: req.params.id })
         .then((user) => {
@@ -113,13 +159,3 @@ exports.deleteProfile = (req, res, next) => {
           });
         });
     };
-//----------------------------------------------------------------------------------------------------------------------
-//PROFILE
-exports.profile = (req, res, next) => {
-
-}
-//----------------------------------------------------------------------------------------------------------------------
-//MODIFY
-exports.modify = (req, res, next) => {
-
-}
