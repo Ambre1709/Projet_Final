@@ -1,7 +1,6 @@
-// MODULES
-//const mysql = require('../dbConnect').connection;
 const fs = require("fs"); // Permet de gérer les fichiers stockés
 const { Post} = require('../models');
+
 // CREATEPOST
 exports.createPost = (req, res, next) => {
     if (!req.body.title === "" || !req.body.content === "") {
@@ -42,12 +41,3 @@ exports.deletePost = (req, res, next) => {
 
 }
 
-//CREATECOMMENT
-exports.createComment = (req, res, next) => {
-
-}
-
-//REACTPOST
-exports.reactPost = (req, res, next) => {
-
-}

@@ -1,5 +1,3 @@
-// MODULES
-//const mysql = require('../dbConnect').connection;
 const bcrypt = require('bcrypt'); 
 const jwt = require("jsonwebtoken");
 const fs = require("fs"); // Permet de gérer les fichiers stockés
