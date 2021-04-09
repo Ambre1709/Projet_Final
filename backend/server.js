@@ -1,5 +1,6 @@
 const http = require('http');/*Importation package http de Node qui nous permet de créer le serveur*/
 const app = require('./app');/*Importation application Express*/
+const db = require('./models');
 
 const normalizePort = val => {/*fonction normalizePort > renvoie un port valide*/
   const port = parseInt(val, 10);
@@ -36,6 +37,10 @@ const errorHandler = error => {/* recherche les différentes erreurs et les gèr
   }
 };
 
+const main = async() => {
+await db.sequelize.authenticate();
+await db.sequelize.sync({ force: true });//à ne pas mettre quand le site est visible par les clients, actualise les changement en temps réelle.
+
 const server = http.createServer(app);/*creation du serveur*/
 
 server.on('error', errorHandler);
@@ -46,3 +51,5 @@ server.on('listening', () => {
 });
 
 server.listen(port);// configuration du serveur sur le port
+};
+main();
