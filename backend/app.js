@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();/*créer une application express*/
-const bodyParser = require('body-parser');
 const path = require('path');/* pour travailler avec les chemins de fichiers et de répertoires*/
 const helmet = require('helmet');/*sécurise les appli Express en définissant divers en-têtes HTTP*/
 
@@ -16,9 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
-app.use(bodyParser.json()); /*transformer le corps des requêtes en objets JSON*/
-
+app.use(express.json()); /*transformer le corps des requêtes en objets JSON*/
 
 app.use(helmet());
 
