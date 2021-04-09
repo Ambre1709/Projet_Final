@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt'); 
 const jwt = require("jsonwebtoken");
-const fs = require("fs"); // Permet de gérer les fichiers stockés
 const passwordValidator = require('password-validator');
-
+const { User } = require('../models');
+//----------------------------------------------------------------------------------------------------------------------
 //creation du schema
 let schema = new passwordValidator();
 schema
@@ -89,7 +89,7 @@ if (req.body.email == null || req.body.password == null) {
 };
 //----------------------------------------------------------------------------------------------------------------------
 exports.getOneProfile = (req, res, next) => {
-    models.User.findOne({ attributes: ["id", "email", "name", "firstname"], where: { id: req.params.id }})
+    User.findOne({ attributes: ["id", "email", "name", "firstname"], where: { id: req.params.id }})
       .then((user) => {
         res.status(200).json(user);
       })
@@ -103,7 +103,7 @@ exports.getOneProfile = (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 exports.modifyProfile = (req, res, next) => {
 
-    models.User.findOne({where: { id: req.params.id }})
+    User.findOne({where: { id: req.params.id }})
     .then((user) => {
     if (user.id === userId) {
       user
@@ -121,20 +121,8 @@ exports.modifyProfile = (req, res, next) => {
   });
 };
 //----------------------------------------------------------------------------------------------------------------------
-exports.getAllMessagesProfile = (req, res, next) => {
-    models.Message.findAll({order: [["updatedAt", "DESC"]],attributes: ["id", "idUsers", "title", "content", "image", "createdAt", "updatedAt",], where: { idUsers: userId }})
-        .then((messages) => {
-          res.status(200).json(messages);
-        })
-        .catch((error) => {
-          res.status(400).json({
-            error: error,
-          });
-        });
-    };
-//----------------------------------------------------------------------------------------------------------------------
 exports.deleteProfile = (req, res, next) => {
-    models.User.findOne({ _id: req.params.id })
+    User.findOne({ _id: req.params.id })
         .then((user) => {
           if (user.id === userId) {
             user
@@ -157,3 +145,15 @@ exports.deleteProfile = (req, res, next) => {
           });
         });
     };
+    //----------------------------------------------------------------------------------------------------------------------
+exports.getAllMessagesProfile = (req, res, next) => {
+  Post.findAll({order: [["updatedAt", "DESC"]],attributes: ["id", "idUsers", "title", "content", "image", "createdAt", "updatedAt",], where: { idUsers: userId }})
+      .then((messages) => {
+        res.status(200).json(messages);
+      })
+      .catch((error) => {
+        res.status(400).json({
+          error: error,
+        });
+      });
+  };

@@ -3,16 +3,12 @@ module.exports = (sequelize, dataTypes) => {
     class Post extends Model {}
     Post.init(
         {
+            idUsers: DataTypes.INTEGER,
             title: {
                 type: dataTypes.STRING,
                 allowNull: false,
             },
-                content:{
-                    type: dataTypes.TEXT,
-                },
-                url: {
-                    type: dataTypes.STRING,
-                },
+            content: dataTypes.TEXT,
         },
         {
             sequelize,

@@ -1,6 +1,5 @@
-const fs = require("fs"); // Permet de gérer les fichiers stockés
-const { Post} = require('../models');
-
+const { Post } = require('../models');
+//----------------------------------------------------------------------------------------------------------------------
 // CREATEPOST
 exports.createPost = (req, res, next) => {
     if (!req.body.title === "" || !req.body.content === "") {
@@ -14,12 +13,12 @@ exports.createPost = (req, res, next) => {
       then(() => res.status(201).json({ message: 'Message enregistré !'}))
       .catch(error => res.status(400).json({ error }));
   };
-
+//----------------------------------------------------------------------------------------------------------------------
 //GETALLPOSTS
 exports.getAllPosts = (req, res, next) => {
 
 }
-
+//----------------------------------------------------------------------------------------------------------------------
 //GETONEPOST
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
@@ -35,7 +34,7 @@ exports.getOnePost = (req, res, next) => {
       });
     });
 }
-
+//----------------------------------------------------------------------------------------------------------------------
 // DELETEPOST
 exports.deletePost = (req, res, next) => {
 

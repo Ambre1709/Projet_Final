@@ -1,6 +1,6 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-    class Post extends Model {}
+    class Comment extends Model {}
     Comment.init(
     {
       idUsers: dataTypes.INTEGER,
