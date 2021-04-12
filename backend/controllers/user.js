@@ -26,8 +26,7 @@ exports.signup = async (req, res, next) => {
     if (!schema.validate(req.body.password)) {
         res.status(400).json({ error: "le mot de passe doit contenir au moins 8 caractères dont 1 chiffre, 1 lettre majuscule et 1 minuscule" });
     }
-    if (
-        req.body.email == "" || req.body.name == "" || req.body.firstname == "" || req.body.password == "") {
+    if (!req.body.email == "" || !req.body.firstname == "" || !req.body.lastname == "" || !req.body.password == "") {
         return res
           .status(400)
           .json({ error: "Merci de remplir tous les champs !" });
@@ -38,8 +37,8 @@ exports.signup = async (req, res, next) => {
     .then(hash => {/*on récup le hash*/
       const user = models.User.create({
           email: req.body.email,
-          name: req.body.name,
           firstname: req.body.firstname,
+          lastname: req.body.lastname,
           password: hash,
           isAdmin: false,
         })
@@ -57,7 +56,7 @@ exports.signup = async (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 //LOGIN
 exports.login = (req, res, next) => {
-if (req.body.email == null || req.body.password == null) {
+if (!req.body.email == null || !req.body.password == null) {
     return res
       .status(400)
       .json({ error: "Merci de remplir tous les champs !" });
@@ -74,8 +73,8 @@ if (req.body.email == null || req.body.password == null) {
         }
         res.status(200).json({/*si le mdp est true on renvoi un obj json*/
           userId: user.id,   /* avec l'id*/
-          name: user.name,
           firstname: user.firstname,
+          lastname: user.lastname,
           token: jwt.sign(    /*et avec un token /// 3 arguments demandés: */
             { userId: user.id },/*correspondance de l'id utilisateur*/
             process.env.TOKEN_LOGIN,/*le token*/
@@ -89,7 +88,7 @@ if (req.body.email == null || req.body.password == null) {
 };
 //----------------------------------------------------------------------------------------------------------------------
 exports.getOneProfile = (req, res, next) => {
-    User.findOne({ attributes: ["id", "email", "name", "firstname"], where: { id: req.params.id }})
+    User.findOne({ attributes: ["id", "email", "firstname", "lastname"], where: { id: req.params.id }})
       .then((user) => {
         res.status(200).json(user);
       })
@@ -108,8 +107,8 @@ exports.modifyProfile = (req, res, next) => {
     if (user.id === userId) {
       user
         .update({
-          name: req.body.name,
           firstname: req.body.firstname,
+          lastname: req.body.lastname,
         })
         .then(() => res.status(200).json({ message: "Profile modifié !" }))
         .catch((error) =>
@@ -146,7 +145,7 @@ exports.deleteProfile = (req, res, next) => {
         });
     };
     //----------------------------------------------------------------------------------------------------------------------
-exports.getAllMessagesProfile = (req, res, next) => {
+exports.getAllPostProfile = (req, res, next) => {
   Post.findAll({order: [["updatedAt", "DESC"]],attributes: ["id", "idUsers", "title", "content", "image", "createdAt", "updatedAt",], where: { idUsers: userId }})
       .then((messages) => {
         res.status(200).json(messages);

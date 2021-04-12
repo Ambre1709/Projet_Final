@@ -6,7 +6,7 @@ const helmet = require('helmet');/*sécurise les appli Express en définissant d
 /*Importation des routes*/
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');// on récupère les routes pour l'user
-
+const commentRoutes = require('./routes/comment');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');/*Accès à l'API depuis n'importe quelle origine*/
@@ -21,8 +21,8 @@ app.use(helmet());
 
 /*importation des routes*/
 app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use("/api/user", userRoutes);
+app.use("/api/auth", userRoutes);
 app.use("/api/post", postRoutes);
-
+app.use("/api/comment", commentRoutes);
 
 module.exports = app;/*export de l'application express pour le serveur node.js*/

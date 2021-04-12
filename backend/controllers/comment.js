@@ -17,6 +17,39 @@ exports.createComment = (req, res, next) => {
 };
 //----------------------------------------------------------------------------------------------------------------------
 exports.getAllComment = (req, res, next) => {
- 
-  };
+ Comment.findAll({
+    where: {idMessages: req.params.id,},
+    order: [["updatedAt", "DESC"]],
+    include: [{model: models.User,attributes: ["firstName", "lastName"],},],
+  })
+    .then((comments) => {
+      res.status(200).json(comments);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
+};
  //----------------------------------------------------------------------------------------------------------------------
+ exports.deleteComment = (req, res, next) => {
+  Comment.findOne({
+    where: {idMessages: req.params.idMessages,id: req.params.id,},
+  }).then((comment) => {
+    if (!comment.idUsers === userId || !isAdmin === true) {
+      comment
+        .destroy()
+        .then(() => {
+          res.status(200).json({
+            message: "Commentaire supprimé !",
+          });
+        })
+        .catch((error) => {
+          res.status(400).json({
+            error: error,
+            message: "Le commentaire n'a pas pu être supprimé",
+          });
+        });
+    }
+  });
+};
