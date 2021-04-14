@@ -9,7 +9,7 @@ exports.createComment = (req, res, next) => {
     }
     Comment.create({
         idUsers: userId,
-        idMessages: req.params.id,
+        idPosts: req.params.id,
         comment: req.body.comment,
     })
     .then(() => res.status(200).json({ message: "Commentaire envoyé !" }))
@@ -18,7 +18,7 @@ exports.createComment = (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 exports.getAllComment = (req, res, next) => {
  Comment.findAll({
-    where: {idMessages: req.params.id,},
+    where: {idPosts: req.params.id,},
     order: [["updatedAt", "DESC"]],
     include: [{model: models.User,attributes: ["firstName", "lastName"],},],
   })
@@ -34,7 +34,7 @@ exports.getAllComment = (req, res, next) => {
  //----------------------------------------------------------------------------------------------------------------------
  exports.deleteComment = (req, res, next) => {
   Comment.findOne({
-    where: {idMessages: req.params.idMessages,id: req.params.id,},
+    where: {idPosts: req.params.idPosts,id: req.params.id,},
   }).then((comment) => {
     if (!comment.idUsers === userId || !isAdmin === true) {
       comment

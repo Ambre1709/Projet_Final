@@ -78,7 +78,7 @@ if (!req.body.email == null || !req.body.password == null) {
           token: jwt.sign(    /*et avec un token /// 3 arguments demandés: */
             { userId: user.id },/*correspondance de l'id utilisateur*/
             process.env.TOKEN_LOGIN,/*le token*/
-            { expiresIn: '24h' }/*expiration du token de 24h*/
+            { expiresIn: '24h' }
           )
         });
       })
@@ -102,9 +102,15 @@ exports.getOneProfile = (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 exports.modifyProfile = (req, res, next) => {
 
+  if (!req.body.firstname == "" || !req.body.lastname == "") {
+    return res
+      .status(400)
+      .json({ error: "Veuillez remplir tous les champs !" });
+  }
+
     User.findOne({where: { id: req.params.id }})
     .then((user) => {
-    if (user.id === userId) {
+    if (user.id === userId || isAdmin === true) {
       user
         .update({
           firstname: req.body.firstname,
@@ -114,7 +120,7 @@ exports.modifyProfile = (req, res, next) => {
         .catch((error) =>
           res
             .status(400)
-            .json({ error: "Impossible de mettre à jour votre profile !" })
+            .json({ error: "Mise à jour impossible !" })
         );
     }
   });
@@ -123,7 +129,7 @@ exports.modifyProfile = (req, res, next) => {
 exports.deleteProfile = (req, res, next) => {
     User.findOne({ _id: req.params.id })
         .then((user) => {
-          if (user.id === userId) {
+          if (user.id === userId || isAdmin === true) {
             user
               .destroy()
               .then(() => {
@@ -146,7 +152,9 @@ exports.deleteProfile = (req, res, next) => {
     };
     //----------------------------------------------------------------------------------------------------------------------
 exports.getAllPostProfile = (req, res, next) => {
-  Post.findAll({order: [["updatedAt", "DESC"]],attributes: ["id", "idUsers", "title", "content", "image", "createdAt", "updatedAt",], where: { idUsers: userId }})
+  Post.findAll({order: [["updatedAt", "DESC"]],
+  attributes: ["id", "idUsers", "title", "content", "image", "createdAt", "updatedAt",], 
+  where: { idUsers: userId }})
       .then((messages) => {
         res.status(200).json(messages);
       })
