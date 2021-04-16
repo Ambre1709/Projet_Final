@@ -1,6 +1,7 @@
 const http = require("http"); /*Importation package http de Node qui nous permet de créer le serveur*/
 const app = require("./app"); /*Importation application Express*/
 const db = require("./models");
+require("dotenv").config();
 
 const normalizePort = (val) => {
   /*fonction normalizePort > renvoie un port valide*/

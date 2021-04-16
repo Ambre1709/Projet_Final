@@ -2,24 +2,37 @@
   <div class="container_login">
     <h2>Bienvenue sur votre réseau social d'entreprise</h2>
     <h3>Connexion</h3>
-      
-      <form class="login"  @submit.prevent="login">
 
-        <label for="email">Email :</label>
-        <input required v-model="email" type="email" name="email" id="email-input" placeholder="utilisateur@domaine.fr"/>
+    <form class="login" @submit.prevent="login">
+      <label for="email">Email :</label>
+      <input
+        required
+        v-model="email"
+        type="email"
+        name="email"
+        id="email-input"
+        placeholder="utilisateur@domaine.fr"
+      />
 
-        <label for="password">Mot de passe :</label>
-        <input required v-model="password" type="password" name="password" id="password-input"/>
+      <label for="password">Mot de passe :</label>
+      <input
+        required
+        v-model="password"
+        type="password"
+        name="password"
+        id="password-input"
+      />
 
-        <button type="submit" @click.prevent="buttonLogin"> Se connecter </button>
-        <p v-if="message">{{ message }}</p>
+      <button type="submit" @click.prevent="buttonLogin">Se connecter</button>
+      <p v-if="message">{{ message }}</p>
+    </form>
 
-      </form>
-
-        <div class="container_signup">
-          <p>Vous n'avez pas de compte? <router-link to="/signup">signup</router-link>.</p>
-        </div>
-
+    <div class="container_signup">
+      <p>
+        Vous n'avez pas de compte?
+        <router-link to="/signup">signup</router-link>.
+      </p>
+    </div>
   </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
@@ -27,11 +40,10 @@
 import axios from "axios";
 
 export default {
-  
   data() {
     return {
-    //   token: "",
-    // userId:"",
+      //   token: "",
+      // userId:"",
       email: "",
       password: "",
       message: "",
@@ -39,64 +51,62 @@ export default {
   },
   methods: {
     async buttonLogin() {
-      await axios
-        .post("http://localhost:3000/api/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
-        // // .then((res) => {
-        // // //   {
-        // //     localStorage.setItem("token", res.data.token);
-        // //     localStorage.setItem("id", res.data.userId);
-        // //   }
-        //   this.$router.push("/");
-        // })
-        // .catch((error) => {
-        //   this.error = error.response.data;
-        // });
+      await axios.post("http://localhost:3000/api/auth/login", {
+        email: this.email,
+        password: this.password,
+      });
+      // // .then((res) => {
+      // // //   {
+      // //     localStorage.setItem("token", res.data.token);
+      // //     localStorage.setItem("id", res.data.userId);
+      // //   }
+      //   this.$router.push("/");
+      // })
+      // .catch((error) => {
+      //   this.error = error.response.data;
+      // });
     },
   },
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-
-.container_login{
+.container_login {
   display: flex;
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
-  box-shadow: 0px 0px 10px 0px #FED7D6;
+  box-shadow: 0px 0px 10px 0px #fed7d6;
   margin-top: 50px;
   width: 95%;
 }
-.login{
+.login {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.login input{
+.login input {
   width: 500px;
   margin-bottom: 15px;
 }
-.login button{
+.login button {
   width: 150px;
   cursor: pointer;
   border: unset;
   font-size: 1.2em;
-  box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.5);
-  background: linear-gradient(80deg,#D1515A 10%,#ff8989 90%);
+  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(80deg, #d1515a 10%, #ff8989 90%);
   margin-top: 40px;
   margin-bottom: 60px;
   transition: 0.3s;
   color: white;
   font-weight: bold;
 }
-.login button:hover{
+.login button:hover {
   border-radius: 10px 0 10px 0;
 }
-.container_signup{
+.container_signup {
   margin-top: 20px;
-  box-shadow: 0px 0px 10px 0px #FED7D6;
+  box-shadow: 0px 0px 10px 0px #fed7d6;
 }
 </style>
