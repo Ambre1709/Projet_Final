@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a href="/"> <img id="logo" src="./assets/logo.png" alt="logo" /></a>
-    <header/>
+    <a href="/"> <img id="logo" src="./assets/logo.png" alt="logo"/></a>
+    <header />
     <router-view />
   </div>
 </template>
@@ -19,7 +19,7 @@
 }
 @media (max-width: 1024px) {
   #logo {
-  width: 300px;
-}
+    width: 300px;
+  }
 }
 </style>

@@ -1,22 +1,22 @@
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
 module.exports = (sequelize, dataTypes) => {
-    class Comment extends Model {
-        static associate(models) {
-        models.Comment.belongsTo(models.User, {
-            foreignKey: {
-              name: "idUser",
-              allowNull: false,
-            },
-          });
-          models.Comment.belongsTo(models.Post, {
-            foreignKey: {
-              name: "idPost",
-              allowNull: false,
-            },
-          });
-        }
+  class Comment extends Model {
+    static associate(models) {
+      models.Comment.belongsTo(models.User, {
+        foreignKey: {
+          name: "idUser",
+          allowNull: false,
+        },
+      });
+      models.Comment.belongsTo(models.Post, {
+        foreignKey: {
+          name: "idPost",
+          allowNull: false,
+        },
+      });
     }
-    Comment.init(
+  }
+  Comment.init(
     {
       idUser: dataTypes.INTEGER,
       idPost: dataTypes.INTEGER,

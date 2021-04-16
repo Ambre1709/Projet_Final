@@ -1,14 +1,28 @@
 <template>
-<!-- ICI ajouter de quoi afficher le Nom et prénom du profil -->
-<div>
- <form method="post" @submit.prevent="updateProfile">
+  <!-- ICI ajouter de quoi afficher le Nom et prénom du profil -->
+  <div>
+    <form method="post" @submit.prevent="updateProfile">
       <div>
         <label for="lastName">Nom :</label>
-        <input required v-model="lastName" type="text" name="lastName" id="lastName-input" placeholder="Dupont"/>
+        <input
+          required
+          v-model="lastName"
+          type="text"
+          name="lastName"
+          id="lastName-input"
+          placeholder="Dupont"
+        />
       </div>
       <div>
         <label for="firstName">Prénom :</label>
-        <input required v-model="firstName" type="text" name="firstName" id="firstName-input" placeholder="Charles"/>
+        <input
+          required
+          v-model="firstName"
+          type="text"
+          name="firstName"
+          id="firstName-input"
+          placeholder="Charles"
+        />
       </div>
 
       <button type="submit" @click.prevent="updateProfile">Modifier</button>
@@ -20,7 +34,7 @@
     </button>
 
     <!-- ICI ajouter de quoi afficher les posts du profil -->
-</div>
+  </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
 <script>
@@ -29,11 +43,11 @@ import axios from "axios";
 export default {
   data() {
     return {
-    //   token: "",
-    //   userId: "",
+      //   token: "",
+      //   userId: "",
       message: "",
-    //   dataProfile: [],
-    //   messagesProfile: [],
+      //   dataProfile: [],
+      //   messagesProfile: [],
       email: "",
       firstName: "",
       lastName: "",
@@ -69,7 +83,7 @@ export default {
     //     });
     // },
     updateProfile() {
-        // pourquoi du locale storage et pk utiliser token et id?
+      // pourquoi du locale storage et pk utiliser token et id?
       let token = localStorage.getItem("token");
       let userId = localStorage.getItem("id");
       const data = {
@@ -104,24 +118,23 @@ export default {
         });
     },
   },
-//   mounted() {
-//     this.loadProfile();
-//     this.loadMessagesProfile();
-//   },
+  //   mounted() {
+  //     this.loadProfile();
+  //     this.loadMessagesProfile();
+  //   },
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-
-#form{
+#form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#form input{
+#form input {
   width: 500px;
 }
-#form button{
+#form button {
   margin-top: 50px;
   margin-bottom: 100px;
 }
@@ -137,5 +150,4 @@ export default {
   color: rgb(216, 41, 41);
   margin-top: 20px;
 }
-
 </style>

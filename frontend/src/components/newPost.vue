@@ -1,16 +1,24 @@
-  
 <template>
   <div>
     <h4>Nouveau message</h4>
     <form method="post" @submit.prevent="buttonNewPost">
       <div>
         <label for="title">Titre :</label>
-        <input type="title" id="title" placeholder="ici votre titre" v-model="title" />
+        <input
+          type="title"
+          id="title"
+          placeholder="ici votre titre"
+          v-model="title"
+        />
       </div>
       <div>
         <label for="content">Description :</label>
         <textarea
-          type="text" id="content" placeholder="Votre message..." v-model="content"/>
+          type="text"
+          id="content"
+          placeholder="Votre message..."
+          v-model="content"
+        />
       </div>
       <!-- <div>
         <label for="File" class="file">(Image facultative)</label>
@@ -28,21 +36,21 @@ export default {
   name: "newPost",
   data() {
     return {
-     userId: localStorage.getItem('userId'),
-    // token: '',
+      userId: localStorage.getItem("userId"),
+      // token: '',
       title: "",
       content: "",
       file: null,
     };
   },
-//   beforeMount() {
-//       if (!localStorage.getItem('userId')) {
-//         // window.location.href = '/login'
-//       }
-//       this.retrieveUser(localStorage.getItem('userId'))
-//   },
+  //   beforeMount() {
+  //       if (!localStorage.getItem('userId')) {
+  //         // window.location.href = '/login'
+  //       }
+  //       this.retrieveUser(localStorage.getItem('userId'))
+  //   },
   methods: {
-      selectFile() {
+    selectFile() {
       this.file = this.$refs.file.files[0];
     },
     buttonNewPost() {
@@ -54,7 +62,7 @@ export default {
         data.append("content", this.content);
         data.append("image", this.file, this.file.name);
       } else {
-          // data.append('userId', this.userId)
+        // data.append('userId', this.userId)
         data.append("title", this.title);
         data.append("content", this.content);
       }
@@ -66,31 +74,31 @@ export default {
           alert("Votre message a bien été envoyé !");
           window.location.reload();
         })
-        .catch( console.error() )
+        .catch(console.error());
     },
   },
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-.input{
+.input {
   width: 500px;
   margin-bottom: 15px;
 }
-.button{
+.button {
   width: 120px;
   cursor: pointer;
   border: unset;
   font-size: 1.2em;
-  box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.5);
-  background: linear-gradient(80deg,#D1515A 10%,#ff8989 90%);
+  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(80deg, #d1515a 10%, #ff8989 90%);
   margin-top: 40px;
   margin-bottom: 60px;
   transition: 0.3s;
   color: white;
   font-weight: bold;
 }
-.button:hover{
+.button:hover {
   border-radius: 10px 0 10px 0;
 }
 </style>

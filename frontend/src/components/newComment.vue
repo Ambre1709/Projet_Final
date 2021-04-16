@@ -3,7 +3,12 @@
     <form method="post" @submit.prevent="buttonNewComment">
       <div>
         <label for="comment"></label>
-        <input type="text" id="comment" placeholder="Ici votre commentaire" v-model="comment"/>
+        <input
+          type="text"
+          id="comment"
+          placeholder="Ici votre commentaire"
+          v-model="comment"
+        />
       </div>
       <button type="submit" @click.prevent="buttonNewComment">Envoyer</button>
     </form>
@@ -32,7 +37,7 @@ export default {
       const data = {
         comment: this.comment,
       };
-    //   let token = localStorage.getItem("token");
+      //   let token = localStorage.getItem("token");
       axios
         .post(
           "http://localhost:3000/api/messages/" + this.id + "/comment/",
@@ -55,23 +60,23 @@ export default {
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-.input{
+.input {
   width: 500px;
 }
-.button{
+.button {
   width: 120px;
   cursor: pointer;
   border: unset;
   font-size: 1.2em;
-  box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.5);
-  background: linear-gradient(80deg,#D1515A 10%,#ff8989 90%);
+  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(80deg, #d1515a 10%, #ff8989 90%);
   margin-top: 40px;
   margin-bottom: 60px;
   transition: 0.3s;
   color: white;
   font-weight: bold;
 }
-.button:hover{
+.button:hover {
   border-radius: 10px 0 10px 0;
 }
 /* .error {
