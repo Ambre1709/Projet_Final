@@ -80,7 +80,7 @@ export default {
   margin-bottom: 15px;
 }
 .login button{
-  width: 120px;
+  width: 150px;
   cursor: pointer;
   border: unset;
   font-size: 1.2em;

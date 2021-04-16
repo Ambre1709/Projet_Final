@@ -57,9 +57,9 @@ export default {
           console.log(res);
           this.$router.push("/login");
         })
-        // signup.vue?6cd2:61 Uncaught (in promise) TypeError: Cannot read property 'data' of undefined
+        //  'data' of undefined
         .catch((error) => {
-          this.error = error.response.data;
+          this.message = error.response.data;
           console.log(error.response.data);
         });
     },
