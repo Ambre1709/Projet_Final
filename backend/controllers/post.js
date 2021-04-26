@@ -30,7 +30,7 @@ exports.getAllPosts = (req, res, next) => {
       "createdAt",
       "updatedAt",
     ],
-    include: [{ model: models.User, attributes: ["firstName", "lastname"] }],
+    include: [{ model: User, attributes: ["firstname", "lastname"] }],
   })
     .then((messages) => {
       res.status(200).json(messages);
@@ -47,7 +47,7 @@ exports.getOnePost = (req, res, next) => {
   Post.findOne({
     attributes: [
       "id",
-      "idUsers",
+      "idUser",
       "title",
       "content",
       "image",
@@ -70,7 +70,7 @@ exports.getOnePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((message) => {
-      if (!message.idUsers === userId || !isAdmin === true) {
+      if (!message.idUser === userId || !isAdmin === true) {
         if (message.image !== null) {
           const filename = message.image.split(
             "/images/"
