@@ -137,7 +137,7 @@ exports.modifyProfile = (req, res, next) => {
           firstname: req.body.firstname,
           lastname: req.body.lastname,
         })
-        .then(() => res.status(200).json({ message: "Profile modifié !" }))
+        .then(() => res.status(200).json({ message: "Profil modifié !" }))
         .catch((error) =>
           res.status(400).json({ error: "Mise à jour impossible !" })
         );

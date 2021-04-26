@@ -1,6 +1,15 @@
 <template>
-  <!-- ICI ajouter de quoi afficher le Nom et prénom du profil -->
   <div>
+    <nav id="nav">
+      <router-link to="/feed">Accueil</router-link>
+    </nav>
+    <div>
+      <p>E-mail:{{ dataProfile.email }}</p>
+      <p>
+        Prénom et Nom: {{ dataProfile.firstname + " " + dataProfile.lastname }}
+      </p>
+    </div>
+    <!-- ICI ajouter de quoi afficher le Nom et prénom du profil -->
     <form method="post" @submit.prevent="updateProfile">
       <div>
         <label for="lastName">Nom :</label>
@@ -46,7 +55,7 @@ export default {
       token: "",
       userId: "",
       message: "",
-      //   dataProfile: [],
+      dataProfile: [],
       //   messagesProfile: [],
       email: "",
       firstName: "",
@@ -83,7 +92,6 @@ export default {
     //     });
     // },
     updateProfile() {
-      // pourquoi du locale storage et pk utiliser token et id?
       let token = localStorage.getItem("token");
       let userId = localStorage.getItem("id");
       const data = {
