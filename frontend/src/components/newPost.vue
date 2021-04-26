@@ -20,10 +20,10 @@
           v-model="content"
         />
       </div>
-      <!-- <div>
+      <div>
         <label for="File" class="file">(Image facultative)</label>
         <input type="file" id="file" ref="file" @change="selectFile()" />
-      </div> -->
+      </div>
       <button type="submit" @click.prevent="buttonNewPost">Envoyer</button>
     </form>
   </div>
@@ -37,18 +37,12 @@ export default {
   data() {
     return {
       userId: localStorage.getItem("userId"),
-      // token: '',
+      token: "",
       title: "",
       content: "",
       file: null,
     };
   },
-  //   beforeMount() {
-  //       if (!localStorage.getItem('userId')) {
-  //         // window.location.href = '/login'
-  //       }
-  //       this.retrieveUser(localStorage.getItem('userId'))
-  //   },
   methods: {
     selectFile() {
       this.file = this.$refs.file.files[0];
@@ -56,13 +50,15 @@ export default {
     buttonNewPost() {
       let token = localStorage.getItem("token");
       const data = new FormData();
+      //avec image
       if (this.file !== null) {
-        // data.append('userId', this.userId)
+        data.append("userId", this.userId);
         data.append("title", this.title);
         data.append("content", this.content);
         data.append("image", this.file, this.file.name);
+        //sans image
       } else {
-        // data.append('userId', this.userId)
+        data.append("userId", this.userId);
         data.append("title", this.title);
         data.append("content", this.content);
       }

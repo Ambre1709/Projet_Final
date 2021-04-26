@@ -107,7 +107,7 @@ export default {
           document.location.reload();
         })
         .catch((error) => {
-          this.error = error.response.data;
+          this.error = error;
         });
     },
     deleteProfile() {

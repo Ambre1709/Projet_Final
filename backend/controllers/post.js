@@ -6,7 +6,7 @@ exports.createPost = (req, res, next) => {
     return res.status(400).json({ error: "Merci de remplir tous les champs." });
   }
   Post.create({
-    idUsers: userId,
+    idUser: userId,
     title: req.body.title, //titre du post
     content: req.body.content, //contenu du post
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
@@ -23,7 +23,7 @@ exports.getAllPosts = (req, res, next) => {
     order: [["updatedAt", "DESC"]],
     attributes: [
       "id",
-      "idUsers",
+      "idUser",
       "title",
       "content",
       "image",

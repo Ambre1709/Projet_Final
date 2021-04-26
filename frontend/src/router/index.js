@@ -18,6 +18,11 @@ const routes = [
     component: () => import("../components/login.vue"),
   },
   {
+    path: "/feed",
+    name: "feed",
+    component: () => import("../components/feed.vue"),
+  },
+  {
     path: "/profile",
     name: "profile",
     component: () => import("../components/profile.vue"),
