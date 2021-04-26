@@ -43,8 +43,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      //   token: "",
-      //   userId: "",
+      token: "",
+      userId: "",
       message: "",
       //   dataProfile: [],
       //   messagesProfile: [],
@@ -54,20 +54,20 @@ export default {
     };
   },
   methods: {
-    // loadProfile() {
-    //   let token = localStorage.getItem("token");
-    //   let userId = localStorage.getItem("id");
-    //   axios
-    //     .get("http://localhost:3000/api/auth/profile/" + userId, {
-    //       headers: { Authorization: "Bearer " + token },
-    //     })
-    //     .then((res) => {
-    //       this.dataProfile = res.data;
-    //     })
-    //     .catch((error) => {
-    //       console.log({ error });
-    //     });
-    // },
+    loadProfile() {
+      let token = localStorage.getItem("token");
+      let userId = localStorage.getItem("id");
+      axios
+        .get("http://localhost:3000/api/auth/profile/" + userId, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          this.dataProfile = res.data;
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
+    },
     // loadMessagesProfile() {
     //   let token = localStorage.getItem("token");
     //   let userId = localStorage.getItem("id");

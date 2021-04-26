@@ -83,6 +83,7 @@ export default {
           data
         );
         console.log(res);
+        this.$router.push("/login");
       } catch (error) {
         this.message = error;
         console.log(error);

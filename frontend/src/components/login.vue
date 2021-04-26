@@ -42,8 +42,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      //   token: "",
-      // userId:"",
+      token: "",
+      userId: "",
       email: "",
       password: "",
       message: "",
@@ -51,20 +51,21 @@ export default {
   },
   methods: {
     async buttonLogin() {
-      await axios.post("http://localhost:3000/api/auth/login", {
-        email: this.email,
-        password: this.password,
-      });
-      // // .then((res) => {
-      // // //   {
-      // //     localStorage.setItem("token", res.data.token);
-      // //     localStorage.setItem("id", res.data.userId);
-      // //   }
-      //   this.$router.push("/");
-      // })
-      // .catch((error) => {
-      //   this.error = error.response.data;
-      // });
+      await axios
+        .post("http://localhost:3000/api/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          {
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("id", res.data.userId);
+          }
+          this.$router.push("/profile");
+        })
+        .catch((error) => {
+          this.error = error.response.data;
+        });
     },
   },
 };
