@@ -124,20 +124,29 @@ exports.getOneProfile = (req, res, next) => {
 };
 //----------------------------------------------------------------------------------------------------------------------
 exports.modifyProfile = (req, res, next) => {
-  if (!req.body.firstname == "" || !req.body.lastname == "") {
+  if (!req.body.firstname || !req.body.lastname) {
     return res
       .status(400)
       .json({ error: "Veuillez remplir tous les champs !" });
   }
 
   User.findOne({ where: { id: req.params.id } }).then((user) => {
-    if (user.id === userId || isAdmin === true) {
+    if (user.id === res.locals.userId || isAdmin === true) {
       user
         .update({
           firstname: req.body.firstname,
           lastname: req.body.lastname,
         })
-        .then(() => res.status(200).json({ message: "Profil modifié !" }))
+        .then(() =>
+          res.status(200).json({
+            message: "Profil modifié !",
+            user: {
+              firstname: user.firstname,
+              lastname: user.lastname,
+              email: user.email,
+            },
+          })
+        )
         .catch((error) =>
           res.status(400).json({ error: "Mise à jour impossible !" })
         );

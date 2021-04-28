@@ -1,15 +1,53 @@
 <template>
-  <div>
-    <div id="allPost">
-      <!-- <h1 class="title">{{ post.title }}</h1> -->
-      <div class="content">
-        <!-- <img:src="post.image" :alt="post.image" v-if="post.image != null"/><br /> -->
-        <!-- {{ post.content }} -->
-      </div>
-    </div>
+  <div v-if="!loading" id="allPost">
+    <h1 class="title">Liste des posts</h1>
+    <cardPost
+      :key="post.id"
+      v-for="post of posts"
+      :title="post.title"
+      :content="post.content"
+      :user="post.User"
+    />
+  </div>
+  <div v-else>
+    chargement...
   </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
-<script></script>
+<script>
+import axios from "axios";
+import cardPost from "./cardPost";
+
+export default {
+  name: "allPosts",
+  components: { cardPost },
+  data() {
+    return {
+      posts: [],
+      loading: false,
+    };
+  },
+  methods: {
+    async fetchPosts() {
+      this.loading = true;
+      const token = localStorage.getItem("token");
+      try {
+        const { data } = await axios.get("https://localhost:3000/api/post", {
+          headers: { Authorization: "Bearer" + token },
+        });
+        this.posts = data;
+      } catch (error) {
+        if (error.status == 401) {
+          this.$router.push("/login");
+        }
+      }
+      this.loading = false;
+    },
+  },
+  mounted() {
+    this.fetchPosts();
+  },
+};
+</script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped></style>

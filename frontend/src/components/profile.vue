@@ -3,33 +3,36 @@
     <nav id="nav">
       <router-link to="/feed">Accueil</router-link>
     </nav>
-    <div>
+    <div v-if="dataProfile">
       <p>E-mail:{{ dataProfile.email }}</p>
       <p>
         Prénom et Nom: {{ dataProfile.firstname + " " + dataProfile.lastname }}
       </p>
     </div>
+    <div v-else>
+      chargement...
+    </div>
     <!-- ICI ajouter de quoi afficher le Nom et prénom du profil -->
     <form method="post" @submit.prevent="updateProfile">
       <div>
-        <label for="lastName">Nom :</label>
+        <label for="lastname">Nom :</label>
         <input
           required
-          v-model="lastName"
+          v-model="lastname"
           type="text"
           name="lastName"
-          id="lastName-input"
+          id="lastname-input"
           placeholder="Dupont"
         />
       </div>
       <div>
-        <label for="firstName">Prénom :</label>
+        <label for="firstname">Prénom :</label>
         <input
           required
-          v-model="firstName"
+          v-model="firstname"
           type="text"
-          name="firstName"
-          id="firstName-input"
+          name="firstname"
+          id="firstname-input"
           placeholder="Charles"
         />
       </div>
@@ -55,11 +58,11 @@ export default {
       token: "",
       userId: "",
       message: "",
-      dataProfile: [],
+      dataProfile: null,
       //   messagesProfile: [],
       email: "",
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
     };
   },
   methods: {
@@ -95,16 +98,17 @@ export default {
       let token = localStorage.getItem("token");
       let userId = localStorage.getItem("id");
       const data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
+        firstname: this.firstname,
+        lastname: this.lastname,
       };
       axios
         .put("http://localhost:3000/api/auth/profile/" + userId, data, {
           headers: { Authorization: "Bearer " + token },
         })
-        .then(() => {
+        .then((res) => {
           alert("Votre profil a bien été mis à jour !");
-          document.location.reload();
+          this.dataProfile = res.data.user;
+          // document.location.reload();
         })
         .catch((error) => {
           this.error = error;
@@ -126,10 +130,11 @@ export default {
         });
     },
   },
-  //   mounted() {
-  //     this.loadProfile();
-  //     this.loadMessagesProfile();
-  //   },
+  mounted() {
+    /*appeler les fonctions quand l'html sera pret*/
+    this.loadProfile();
+    // this.loadMessagesProfile();
+  },
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------

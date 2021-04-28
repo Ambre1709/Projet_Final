@@ -1,4 +1,4 @@
-const { Post } = require("../models");
+const { Post, User } = require("../models");
 //----------------------------------------------------------------------------------------------------------------------
 // CREATEPOST
 exports.createPost = (req, res, next) => {
@@ -6,12 +6,14 @@ exports.createPost = (req, res, next) => {
     return res.status(400).json({ error: "Merci de remplir tous les champs." });
   }
   Post.create({
-    idUser: userId,
+    idUser: res.locals.userId,
     title: req.body.title, //titre du post
     content: req.body.content, //contenu du post
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }` /*le front end ne connaissant pas l'url de l'image il faut le définir manuellement*/,
+    /*le front end ne connaissant pas l'url de l'image il faut le définir manuellement*/
+    image:
+      req.body.content && req.file
+        ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+        : null,
   })
     .then(() => res.status(201).json({ message: "Message enregistré !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -19,7 +21,7 @@ exports.createPost = (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 //GETALLPOSTS
 exports.getAllPosts = (req, res, next) => {
-  Message.findAll({
+  Post.findAll({
     order: [["updatedAt", "DESC"]],
     attributes: [
       "id",

@@ -1,15 +1,15 @@
 <template>
   <div id="nav">
-    <signup />
+    <login />
   </div>
 </template>
 
 <script>
-import signup from "../components/signup";
+import login from "../components/login";
 export default {
   name: "Home",
   components: {
-    signup,
+    login,
   },
 };
 </script>

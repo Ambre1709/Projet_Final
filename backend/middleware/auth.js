@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     // Check si le token est bon grâce à notre phrase secrète
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.TOKEN);
-    res.locals.userID = decodedToken.userID;
+    res.locals.userId = decodedToken.userId;
     next();
   } catch {
     res.status(401).json({ message: "Requête invalide!" });
