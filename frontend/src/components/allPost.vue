@@ -1,6 +1,6 @@
 <template>
   <div v-if="!loading" id="allPost">
-    <h1 class="title">Liste des posts</h1>
+    <h3 class="title">Liste des posts</h3>
     <cardPost
       :key="post.id"
       v-for="post of posts"

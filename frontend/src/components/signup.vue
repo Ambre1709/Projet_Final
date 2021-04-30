@@ -111,6 +111,7 @@ export default {
 .signup input {
   width: 500px;
   margin-bottom: 15px;
+  max-width: 94%;
 }
 .signup button {
   width: 120px;

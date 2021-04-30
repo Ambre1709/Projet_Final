@@ -8,15 +8,15 @@
 import axios from "axios";
 
 export default {
-  //   name: "deletePost",
-  //   props: {
-  //     id: Number,
-  //   },
-  //   data() {
-  //     return {
-  //       token: "",
-  //     };
-  //   },
+  name: "deletePost",
+  props: {
+    id: Number,
+  },
+  data() {
+    return {
+      token: "",
+    };
+  },
   methods: {
     deletePost() {
       let token = localStorage.getItem("token");

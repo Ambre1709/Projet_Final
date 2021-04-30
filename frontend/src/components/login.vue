@@ -64,7 +64,7 @@ export default {
           this.$router.push("/profile");
         })
         .catch((error) => {
-          this.error = error.response.data;
+          this.error = error;
         });
     },
   },
@@ -89,6 +89,7 @@ export default {
 .login input {
   width: 500px;
   margin-bottom: 15px;
+  max-width: 94%;
 }
 .login button {
   width: 150px;

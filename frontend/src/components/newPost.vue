@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h4>Nouveau message</h4>
     <form method="post" @submit.prevent="buttonNewPost">
+      <h3>Nouveau message</h3>
       <div>
         <label for="title">Titre :</label>
         <input
@@ -77,24 +77,24 @@ export default {
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-.input {
-  width: 500px;
-  margin-bottom: 15px;
-}
-.button {
-  width: 120px;
+button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: none;
   cursor: pointer;
-  border: unset;
-  font-size: 1.2em;
   box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(80deg, #d1515a 10%, #ff8989 90%);
-  margin-top: 40px;
-  margin-bottom: 60px;
-  transition: 0.3s;
-  color: white;
-  font-weight: bold;
 }
-.button:hover {
-  border-radius: 10px 0 10px 0;
+form {
+  background-color: #d9d9d9;
+  padding-top: 1px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+label {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+input {
+  margin-bottom: 10px;
 }
 </style>
