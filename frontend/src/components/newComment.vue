@@ -37,7 +37,7 @@ export default {
       const data = {
         comment: this.comment,
       };
-      //   let token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
       axios
         .post(
           "http://localhost:3000/api/messages/" + this.id + "/comment/",

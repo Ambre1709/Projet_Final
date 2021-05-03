@@ -27,6 +27,11 @@ const routes = [
     name: "profile",
     component: () => import("../components/profile.vue"),
   },
+  {
+    path: "/post/:id",
+    name: "post",
+    component: () => import("../components/onePost.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

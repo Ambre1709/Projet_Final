@@ -7,6 +7,7 @@
       :title="post.title"
       :content="post.content"
       :user="post.User"
+      :id="post.id"
     />
   </div>
   <div v-else>
@@ -32,12 +33,12 @@ export default {
       this.loading = true;
       const token = localStorage.getItem("token");
       try {
-        const { data } = await axios.get("https://localhost:3000/api/post", {
-          headers: { Authorization: "Bearer" + token },
+        const { data } = await axios.get("http://localhost:3000/api/post", {
+          headers: { Authorization: "Bearer " + token },
         });
         this.posts = data;
       } catch (error) {
-        if (error.status == 401) {
+        if (error.status === 401) {
           this.$router.push("/login");
         }
       }

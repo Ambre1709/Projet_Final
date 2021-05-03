@@ -3,12 +3,13 @@
     <h2>{{ title }}</h2>
     <p>{{ content }}</p>
     <p>Publié par {{ user.firstname }} {{ user.lastname }}</p>
+    <router-link :to="`/post/${id}`">Commentaires ...</router-link>
   </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 export default {
-  props: ["title", "content", "user"],
+  props: ["title", "content", "user", "id"],
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------

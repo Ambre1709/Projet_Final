@@ -52,16 +52,14 @@
       <!-- ICI ajouter de quoi afficher les posts du profil -->
       <h3>Mes Posts</h3>
       <div class="les-Posts">
-        <div class="mes-Post" v-for="myPost in postProfile" :key="myPost.id">
-          <h3>{{ myPost.title }}</h3>
-          <img
-            :src="myPost.image"
-            :alt="myPost.image"
-            v-if="myPost.image != null"
-          /><br />
-          <p>{{ myPost.content }}</p>
-          <!-- <deletePost :id="myPost.id" /> -->
-        </div>
+        <cardPost
+          :key="post.id"
+          v-for="post of posts"
+          :title="post.title"
+          :content="post.content"
+          :user="post.User"
+          :id="post.id"
+        />
       </div>
     </div>
   </div>
@@ -69,6 +67,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
+import cardPost from "./cardPost";
 
 export default {
   data() {
@@ -77,12 +76,13 @@ export default {
       userId: "",
       message: "",
       dataProfile: null,
-      postProfile: [],
+      posts: [],
       email: "",
       firstname: "",
       lastname: "",
     };
   },
+  components: { cardPost },
   methods: {
     loadProfile() {
       let token = localStorage.getItem("token");
@@ -110,7 +110,7 @@ export default {
           headers: { Authorization: "Bearer " + token },
         })
         .then((res) => {
-          this.postProfile = res.data;
+          this.posts = res.data;
         })
         .catch((error) => {
           console.log({ error });

@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const passwordValidator = require("password-validator");
 require("dotenv").config();
-const { User } = require("../models");
+const { User, Post } = require("../models");
 //----------------------------------------------------------------------------------------------------------------------
 //creation du schema
 let schema = new passwordValidator();
@@ -61,7 +61,6 @@ exports.signup = async (req, res, next) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         password: hash,
-        isAdmin: false,
       })
         .then((user) => {
           res.status(201).json({
@@ -184,14 +183,15 @@ exports.getAllPostProfile = (req, res, next) => {
     order: [["updatedAt", "DESC"]],
     attributes: [
       "id",
-      "idUsers",
+      "idUser",
       "title",
       "content",
       "image",
       "createdAt",
       "updatedAt",
     ],
-    where: { idUsers: userId },
+    where: { idUser: res.locals.userId },
+    include: [{ model: User, attributes: ["firstname", "lastname"] }],
   })
     .then((messages) => {
       res.status(200).json(messages);
