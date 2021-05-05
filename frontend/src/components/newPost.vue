@@ -3,7 +3,7 @@
     <form method="post" @submit.prevent="buttonNewPost">
       <h3>Nouveau message</h3>
       <div>
-        <label for="title">Titre :</label>
+        <label for="title">Titre :</label><br />
         <input
           type="title"
           id="title"
@@ -12,8 +12,8 @@
         />
       </div>
       <div>
-        <label for="content">Description :</label>
-        <textarea
+        <label for="content">Description :</label><br />
+        <input
           type="text"
           id="content"
           placeholder="Votre message..."
@@ -80,7 +80,7 @@ export default {
 .newpost {
   flex: 1;
   background-color: #d2fafa;
-  height: 30%;
+  height: 35%;
   margin: 20px 20px 20px 20px;
   border-radius: 10px;
   padding-top: 10px;
@@ -105,7 +105,13 @@ label {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-input {
-  margin-bottom: 10px;
+#content,
+#title {
+  margin-bottom: 15px;
+  width: 500px;
+  max-width: 94%;
+  border-style: solid;
+  border-color: #31bcc6;
+  background-color: white;
 }
 </style>

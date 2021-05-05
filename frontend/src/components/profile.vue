@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <nav id="nav">
-      <router-link to="/feed">Accueil</router-link>
-      <a to="/login" v-on:click="Logout()"> Déconnexion</a>
-    </nav> -->
     <div id="container">
       <!-- ICI ajouter de quoi afficher les posts du profil -->
       <div class="les-Posts">
@@ -25,6 +21,7 @@
             Prénom et Nom :
             {{ dataProfile.firstname + " " + dataProfile.lastname }}
           </p>
+          <hr />
         </div>
         <div v-else id="chargement">
           Chargement
@@ -35,7 +32,7 @@
         <!-- modification Nom et prénom du profil -->
         <form method="post" @submit.prevent="updateProfile">
           <div>
-            <label for="lastname">Nom :</label>
+            <label for="lastname">Nom</label><br />
             <input
               required
               v-model="lastname"
@@ -46,7 +43,7 @@
             />
           </div>
           <div>
-            <label for="firstname">Prénom :</label>
+            <label for="firstname">Prénom</label><br />
             <input
               required
               v-model="firstname"
@@ -60,6 +57,7 @@
           <button type="submit" @click.prevent="updateProfile">Modifier</button>
           <p v-if="message">{{ message }}</p>
         </form>
+        <hr />
         <!-- Supprimer le profil -->
         <button class="deletebtn" type="submit" @click.prevent="deleteProfile">
           Supprimer mon compte
@@ -164,17 +162,7 @@ export default {
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-#container {
-  display: flex;
-  justify-content: space-around;
-}
-#profil {
-  flex: 1;
-  background-color: #d2fafa;
-  height: 30%;
-  margin: 20px 20px 20px 20px;
-  border-radius: 10px;
-}
+/* v-else animation chargement */
 #chargement {
   margin-top: 20px;
   color: #31bcc6;
@@ -205,6 +193,18 @@ span:nth-child(3) {
     transform: translateY(-10px);
   }
 }
+/* fin animation chargement */
+#container {
+  display: flex;
+  justify-content: space-around;
+}
+#profil {
+  flex: 1;
+  background-color: #d2fafa;
+  height: 30%;
+  margin: 20px 20px 20px 20px;
+  border-radius: 10px;
+}
 .les-Posts {
   flex: 2;
 }
@@ -224,7 +224,7 @@ span:nth-child(3) {
   box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
   background-color: rgb(216, 41, 41);
   margin-top: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   transition: 0.3s;
   color: white;
   font-weight: bold;
@@ -233,11 +233,17 @@ span:nth-child(3) {
   border-radius: 10px 0 10px 0;
 }
 button {
+  width: 120px;
+  cursor: pointer;
+  border: unset;
+  font-size: 1em;
+  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+  background: #31bcc6;
   margin-top: 20px;
   margin-bottom: 20px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 2px 2px 5px 0px black;
+  transition: 0.3s;
+  color: white;
+  font-weight: bold;
 }
 .error {
   font-size: 1.2em;
@@ -247,12 +253,19 @@ button {
 form {
   padding-top: 20px;
 }
-label {
-  margin-right: 10px;
-  margin-bottom: 10px;
+#lastname-input,
+#firstname-input {
+  margin-bottom: 15px;
+  margin-top: 5px;
+  width: 500px;
+  max-width: 94%;
+  border-style: solid;
+  border-color: #31bcc6;
+  background-color: white;
+  text-align: center;
 }
-input {
-  margin-bottom: 10px;
+hr {
+  border: 2px solid #d6dfe2;
 }
 @media screen and (max-width: 1130px) {
   #container {

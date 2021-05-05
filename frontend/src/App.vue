@@ -50,7 +50,6 @@ nav {
   background-color: #31bcc6;
   display: flex;
   justify-content: center;
-
   margin: -10px -10px 0px -10px;
   height: 90px;
   align-items: center;
@@ -69,9 +68,4 @@ nav li {
   text-align: center;
   color: #000000;
 }
-/* @media (max-width: 1024px) {
-  #logo {
-    width: 300px;
-  }
-} */
 </style>

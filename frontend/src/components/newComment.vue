@@ -69,7 +69,7 @@ export default {
   border: unset;
   font-size: 1.2em;
   box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(80deg, #d1515a 10%, #ff8989 90%);
+  background: #31bcc6;
   margin-top: 40px;
   margin-bottom: 60px;
   transition: 0.3s;
