@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <div id="nav">
-      <router-link to="/profile"> Profil</router-link> |
-      <a to="/login" v-on:click="Logout()"> Déconnexion</a>
-    </div>
-    <div>
-      <newPost />
-    </div>
-    <div>
+  <div id="container">
+    <div class="allpost">
       <allPost />
+    </div>
+    <div class="newpost">
+      <newPost />
     </div>
   </div>
 </template>
@@ -37,4 +33,24 @@ export default {
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------
-<style scoped></style>
+<style scoped>
+#container {
+  display: flex;
+  justify-content: space-around;
+}
+.allpost {
+  flex: 2;
+}
+.newpost {
+  flex: 1;
+}
+
+@media screen and (max-width: 1130px) {
+  #container {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+</style>

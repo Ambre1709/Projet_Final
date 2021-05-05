@@ -1,57 +1,13 @@
 <template>
   <div>
-    <nav id="nav">
+    <!-- <nav id="nav">
       <router-link to="/feed">Accueil</router-link>
       <a to="/login" v-on:click="Logout()"> Déconnexion</a>
-    </nav>
+    </nav> -->
     <div id="container">
-      <!-- Email, Nom et prénom du profil -->
-      <div v-if="dataProfile">
-        <p>E-mail :{{ " " + dataProfile.email }}</p>
-        <p>
-          Prénom et Nom :
-          {{ dataProfile.firstname + " " + dataProfile.lastname }}
-        </p>
-      </div>
-      <div v-else>
-        chargement...
-      </div>
-      <!-- modification Nom et prénom du profil -->
-      <form method="post" @submit.prevent="updateProfile">
-        <div>
-          <label for="lastname">Nom :</label>
-          <input
-            required
-            v-model="lastname"
-            type="text"
-            name="lastName"
-            id="lastname-input"
-            placeholder="Dupont"
-          />
-        </div>
-        <div>
-          <label for="firstname">Prénom :</label>
-          <input
-            required
-            v-model="firstname"
-            type="text"
-            name="firstname"
-            id="firstname-input"
-            placeholder="Charles"
-          />
-        </div>
-
-        <button type="submit" @click.prevent="updateProfile">Modifier</button>
-        <p v-if="message">{{ message }}</p>
-      </form>
-      <!-- Supprimer le profil -->
-      <button class="deletebtn" type="submit" @click.prevent="deleteProfile">
-        Supprimer mon compte
-      </button>
-
       <!-- ICI ajouter de quoi afficher les posts du profil -->
-      <h3>Mes Posts</h3>
       <div class="les-Posts">
+        <h3>Mes Posts</h3>
         <cardPost
           :key="post.id"
           v-for="post of posts"
@@ -60,6 +16,54 @@
           :user="post.User"
           :id="post.id"
         />
+      </div>
+      <div id="profil">
+        <!-- Email, Nom et prénom du profil -->
+        <div v-if="dataProfile">
+          <p>E-mail :{{ " " + dataProfile.email }}</p>
+          <p>
+            Prénom et Nom :
+            {{ dataProfile.firstname + " " + dataProfile.lastname }}
+          </p>
+        </div>
+        <div v-else id="chargement">
+          Chargement
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <!-- modification Nom et prénom du profil -->
+        <form method="post" @submit.prevent="updateProfile">
+          <div>
+            <label for="lastname">Nom :</label>
+            <input
+              required
+              v-model="lastname"
+              type="text"
+              name="lastName"
+              id="lastname-input"
+              placeholder="Dupont"
+            />
+          </div>
+          <div>
+            <label for="firstname">Prénom :</label>
+            <input
+              required
+              v-model="firstname"
+              type="text"
+              name="firstname"
+              id="firstname-input"
+              placeholder="Charles"
+            />
+          </div>
+
+          <button type="submit" @click.prevent="updateProfile">Modifier</button>
+          <p v-if="message">{{ message }}</p>
+        </form>
+        <!-- Supprimer le profil -->
+        <button class="deletebtn" type="submit" @click.prevent="deleteProfile">
+          Supprimer mon compte
+        </button>
       </div>
     </div>
   </div>
@@ -162,7 +166,55 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+}
+#profil {
+  flex: 1;
+  background-color: #d2fafa;
+  height: 30%;
+  margin: 20px 20px 20px 20px;
+  border-radius: 10px;
+}
+#chargement {
+  margin-top: 20px;
+  color: #31bcc6;
+}
+#chargement span {
+  width: 0.5em;
+  height: 0.5em;
+  margin: 0 2px;
+  background-color: #31bcc6;
+  border-radius: 50%;
+  display: inline-block;
+  animation-name: JumpingDots;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+span:nth-child(3) {
+  animation-delay: 0.8s;
+}
+@keyframes JumpingDots {
+  30% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.les-Posts {
+  flex: 2;
+}
+.les-Posts h3 {
+  background-color: #d2fafa;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 .deletebtn {
   width: 150px;
@@ -193,7 +245,6 @@ button {
   margin-top: 20px;
 }
 form {
-  background-color: #d9d9d9;
   padding-top: 20px;
 }
 label {
@@ -202,5 +253,13 @@ label {
 }
 input {
   margin-bottom: 10px;
+}
+@media screen and (max-width: 1130px) {
+  #container {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 }
 </style>

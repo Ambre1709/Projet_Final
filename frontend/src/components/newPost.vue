@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="newpost">
     <form method="post" @submit.prevent="buttonNewPost">
       <h3>Nouveau message</h3>
       <div>
@@ -21,7 +21,7 @@
         />
       </div>
       <div>
-        <label for="File" class="file">(Image facultative)</label>
+        <!-- <label for="File" class="file">(Image facultative)</label> -->
         <input type="file" id="file" ref="file" @change="selectFile()" />
       </div>
       <button type="submit" @click.prevent="buttonNewPost">Envoyer</button>
@@ -77,18 +77,29 @@ export default {
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+.newpost {
+  flex: 1;
+  background-color: #d2fafa;
+  height: 30%;
+  margin: 20px 20px 20px 20px;
+  border-radius: 10px;
+  padding-top: 10px;
 }
-form {
-  background-color: #d9d9d9;
-  padding-top: 1px;
+button {
+  width: 150px;
+  cursor: pointer;
+  border: unset;
+  font-size: 1.2em;
+  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+  background-color: #31bcc6;
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  transition: 0.3s;
+  color: white;
+  font-weight: bold;
+}
+button:hover {
+  border-radius: 10px 0 10px 0;
 }
 label {
   margin-right: 10px;

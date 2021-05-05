@@ -15,6 +15,12 @@ export default {
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
 .card {
-  border: 1px solid black;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  padding-bottom: 30px;
+  padding-top: 1px;
+  background-color: white;
+  border-radius: 10px;
 }
 </style>

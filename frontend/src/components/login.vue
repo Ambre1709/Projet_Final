@@ -77,9 +77,10 @@ export default {
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
-  box-shadow: 0px 0px 10px 0px #fed7d6;
+  box-shadow: 0px 0px 10px 0px grey;
   margin-top: 50px;
   width: 95%;
+  background-color: white;
 }
 .login {
   display: flex;
@@ -109,6 +110,6 @@ export default {
 }
 .container_signup {
   margin-top: 20px;
-  box-shadow: 0px 0px 10px 0px #fed7d6;
+  box-shadow: 0px 0px 10px 0px grey;
 }
 </style>
