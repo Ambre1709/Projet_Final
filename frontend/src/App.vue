@@ -1,20 +1,18 @@
 <template>
   <div>
+    <div id="navlogo">
+      <a href="/"> <img id="logo" src="./assets/logo.png" alt="logo"/></a>
+    </div>
     <nav id="nav">
-      <div class="deux">
-        <a href="/"> <img id="logo" src="./assets/logo.png" alt="logo"/></a>
-      </div>
-      <div class="un">
-        <ul>
-          <li><router-link to="/feed">Accueil</router-link></li>
-          <li><router-link to="/profile"> Profil</router-link></li>
-          <li>
-            <a to="/login" v-on:click="Logout()">
-              <span class="deco">Déconnexion</span></a
-            >
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li><router-link to="/feed">Accueil</router-link></li>
+        <li><router-link to="/profile"> Profil</router-link></li>
+        <li>
+          <a to="/login" v-on:click="Logout()">
+            <span class="deco">Déconnexion</span></a
+          >
+        </li>
+      </ul>
     </nav>
     <header />
     <router-view />
@@ -36,23 +34,30 @@ export default {
 body {
   background-color: #d6dfe2;
 }
-.deux {
-  flex: 2;
-}
-.un {
-  flex: 1;
-}
 #logo {
   width: 400px;
+  max-width: 80%;
 }
-nav {
-  width: 100%;
-  background-color: #31bcc6;
+#navlogo {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: #31bcc6;
   margin: -10px -10px 0px -10px;
   height: 90px;
+}
+nav {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: #d2fafa;
+  margin: -10px -10px 0px -10px;
+  height: 40px;
+  margin-bottom: 50px;
 }
 nav li {
   display: inline-block;

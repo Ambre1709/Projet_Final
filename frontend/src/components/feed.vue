@@ -1,10 +1,13 @@
 <template>
-  <div id="container">
-    <div class="allpost">
-      <allPost />
-    </div>
-    <div class="newpost">
-      <newPost />
+  <div>
+    <h1>FEED</h1>
+    <div id="container">
+      <div class="allpost">
+        <allPost />
+      </div>
+      <div class="newpost">
+        <newPost />
+      </div>
     </div>
   </div>
 </template>

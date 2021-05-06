@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>MON PROFIL</h1>
     <div id="container">
       <!-- ICI ajouter de quoi afficher les posts du profil -->
       <div class="les-Posts">
@@ -12,6 +13,7 @@
           :user="post.User"
           :id="post.id"
         />
+        <!-- <deletePost :id="post.id" /> -->
       </div>
       <div id="profil">
         <!-- Email, Nom et prénom du profil -->
@@ -69,9 +71,18 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
+// import deletePost from "./deletePost";
 import cardPost from "./cardPost";
 
 export default {
+  name: "profile",
+  components: {
+    // deletePost,
+    cardPost,
+  },
+  props: {
+    id: Number,
+  },
   data() {
     return {
       token: "",
@@ -84,7 +95,7 @@ export default {
       lastname: "",
     };
   },
-  components: { cardPost },
+
   methods: {
     loadProfile() {
       let token = localStorage.getItem("token");
