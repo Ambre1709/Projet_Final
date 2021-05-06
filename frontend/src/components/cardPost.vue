@@ -18,8 +18,7 @@ export default {
   margin-left: 20px;
   margin-bottom: 10px;
   margin-right: 20px;
-  padding-bottom: 30px;
-  padding-top: 1px;
+  padding: 1px 30px 30px 30px;
   background-color: white;
   border-radius: 10px;
 }

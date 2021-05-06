@@ -215,9 +215,15 @@ span:nth-child(3) {
   height: 30%;
   margin: 20px 20px 20px 20px;
   border-radius: 10px;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .les-Posts {
   flex: 2;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .les-Posts h3 {
   background-color: #d2fafa;
@@ -284,6 +290,12 @@ hr {
     flex-direction: column-reverse;
     flex-wrap: wrap;
     justify-content: space-around;
+  }
+  .les-Posts {
+    width: 100%;
+  }
+  #profil {
+    width: 100%;
   }
 }
 </style>

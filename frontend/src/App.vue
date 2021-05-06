@@ -55,9 +55,8 @@ nav {
   flex-direction: column;
   width: 100%;
   background-color: #d2fafa;
-  margin: -10px -10px 0px -10px;
+  margin: 0px -10px 0px -10px;
   height: 40px;
-  margin-bottom: 50px;
 }
 nav li {
   display: inline-block;
