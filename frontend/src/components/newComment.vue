@@ -39,16 +39,12 @@ export default {
       };
       let token = localStorage.getItem("token");
       axios
-        .post(
-          "http://localhost:3000/api/messages/" + this.id + "/comment/",
-          data,
-          {
-            headers: { Authorization: "Bearer " + token },
-          }
-        )
+        .post("http://localhost:3000/api/post/" + this.id + "/comment/", data, {
+          headers: { Authorization: "Bearer " + token },
+        })
         .then((res) => {
           console.log(res);
-          this.$router.push("/oneMessage/" + this.id);
+          this.$router.push("/onePost/" + this.id);
           document.location.reload();
         })
         .catch((error) => {

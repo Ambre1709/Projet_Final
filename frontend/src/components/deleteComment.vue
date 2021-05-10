@@ -23,7 +23,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .delete(
-          "http://localhost:3000/api/messages/" +
+          "http://localhost:3000/api/post/" +
             this.id +
             "/comment/" +
             this.idComm,

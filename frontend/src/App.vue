@@ -64,6 +64,7 @@ nav li {
 }
 .deco {
   color: rgb(216, 41, 41);
+  cursor: pointer;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

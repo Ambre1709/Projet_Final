@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div id="nav"><router-link to="/feed">Retour</router-link></div>
     <div v-if="post">
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
@@ -8,16 +7,26 @@
     <div v-else>
       chargement...
     </div>
+
     <!-- <p>{{ post.file }}</p> -->
     <!-- <p>Publié par {{ user.firstname }} {{ user.lastname }}</p> -->
+    <!-- <div>
+      <deleteComment :idComm="comment.id" />
+    </div> -->
   </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
+// import deleteComment from "./deleteComment";
+// import newComment from "./newComment";
 
 export default {
   name: "onePost",
+  components: {
+    // deleteComment,
+    // newComment,
+  },
   data() {
     return {
       post: null,
@@ -46,7 +55,6 @@ export default {
     },
   },
   mounted() {
-    console.log("test");
     this.fetchPost();
   },
 };
