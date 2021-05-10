@@ -1,13 +1,14 @@
-const { Comment } = require("../models");
+const { Comment, User } = require("../models");
 //----------------------------------------------------------------------------------------------------------------------
 //CREATECOMMENT
 exports.createComment = (req, res, next) => {
-  if (!req.body.comment === "") {
+  if (!req.body.comment) {
     return res.status(400).json({ error: "Merci de remplir le champ." });
   }
+  console.log(req.params);
   Comment.create({
-    idUsers: userId,
-    idPosts: req.params.id,
+    idUser: res.locals.userId,
+    idPost: req.params.postId,
     comment: req.body.comment,
   })
     .then(() => res.status(200).json({ message: "Commentaire envoyé !" }))
@@ -16,9 +17,9 @@ exports.createComment = (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 exports.getAllComment = (req, res, next) => {
   Comment.findAll({
-    where: { idPosts: req.params.id },
+    where: { idPost: req.params.postId },
     order: [["updatedAt", "DESC"]],
-    include: [{ model: models.User, attributes: ["firstName", "lastName"] }],
+    include: [{ model: User, attributes: ["firstName", "lastName", "id"] }],
   })
     .then((comments) => {
       res.status(200).json(comments);

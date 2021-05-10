@@ -3,11 +3,24 @@
     <div v-if="post">
       <h1>{{ post.title }}</h1>
       <p>{{ post.content }}</p>
+      <new-comment @refresh="fetchComments" :id="post.id"></new-comment>
+
+      <div :key="comment.id" v-for="comment of comments">
+        <!-- <pre>
+          <code>{{ comment }}</code>          
+        </pre> -->
+        <p>
+          {{ comment.comment }}
+        </p>
+        <p>de {{ comment.User.firstName }} {{ comment.User.lastName }}</p>
+        <div v-if="comment.User.id === me">
+          <button @click.prevent="deleteComment(comment.id)">Supprimer</button>
+        </div>
+      </div>
     </div>
     <div v-else>
       chargement...
     </div>
-
     <!-- <p>{{ post.file }}</p> -->
     <!-- <p>Publié par {{ user.firstname }} {{ user.lastname }}</p> -->
     <!-- <div>
@@ -18,25 +31,24 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-// import deleteComment from "./deleteComment";
-// import newComment from "./newComment";
+import config from "../config.json";
+import newComment from "./newComment";
 
 export default {
   name: "onePost",
   components: {
-    // deleteComment,
-    // newComment,
+    newComment,
   },
   data() {
     return {
       post: null,
-      //loading: false,
+      comments: [],
+      me: 0,
     };
   },
 
   methods: {
     async fetchPost() {
-      //this.loading = true;
       const token = localStorage.getItem("token");
       try {
         const { data } = await axios.get(
@@ -47,15 +59,46 @@ export default {
         );
         this.post = data;
       } catch (error) {
+        console.log("error");
+      }
+      this.loading = false;
+    },
+    async fetchComments() {
+      const token = localStorage.getItem("token");
+      try {
+        const { data } = await axios.get(
+          config.endpoint + "/api/post/" + this.$route.params.id + "/comments",
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        );
+        this.comments = data;
+      } catch (error) {
         if (error.status === 401) {
           this.$router.push("/login");
         }
       }
-      this.loading = false;
+    },
+    async deleteComment(id) {
+      console.log("delete comment id: ", id);
+      const isConfirm = await confirm(
+        "êtes vous sure de supprimer le commentaire ?"
+      );
+      console.log({ isConfirm });
+      if (!isConfirm) {
+        return;
+      }
+      // delete comment id
+      // this.fetchComments();
     },
   },
   mounted() {
     this.fetchPost();
+    this.fetchComments();
+    this.me = Number(localStorage.getItem("id"));
+    // Number("11"); // 11
+    // Number("tugudu"); // NaN
+    // isNaN(Number("tugudu")) // true
   },
 };
 </script>

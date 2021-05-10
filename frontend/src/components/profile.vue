@@ -109,6 +109,9 @@ export default {
         })
         .catch((error) => {
           console.log({ error });
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
         });
     },
     Logout() {
@@ -127,6 +130,9 @@ export default {
         })
         .catch((error) => {
           console.log({ error });
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
         });
     },
     updateProfile() {
@@ -146,6 +152,9 @@ export default {
         })
         .catch((error) => {
           this.error = error;
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
         });
     },
     deleteProfile() {
@@ -161,6 +170,9 @@ export default {
         })
         .catch((error) => {
           console.log({ error });
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
         });
     },
   },

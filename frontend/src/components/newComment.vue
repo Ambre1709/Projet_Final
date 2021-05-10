@@ -10,7 +10,7 @@
           v-model="comment"
         />
       </div>
-      <button type="submit" @click.prevent="buttonNewComment">Envoyer</button>
+      <button type="submit">Envoyer</button>
     </form>
     <div class="error" v-if="error">
       {{ error.error }}
@@ -24,7 +24,7 @@ import axios from "axios";
 export default {
   name: "newComment",
   props: {
-    id: Number,
+    id: { type: Number },
   },
   data() {
     return {
@@ -33,23 +33,23 @@ export default {
     };
   },
   methods: {
-    buttonNewComment() {
-      const data = {
-        comment: this.comment,
-      };
-      let token = localStorage.getItem("token");
-      axios
-        .post("http://localhost:3000/api/post/" + this.id + "/comment/", data, {
-          headers: { Authorization: "Bearer " + token },
-        })
-        .then((res) => {
-          console.log(res);
-          this.$router.push("/onePost/" + this.id);
-          document.location.reload();
-        })
-        .catch((error) => {
-          this.error = error.response.data;
-        });
+    async buttonNewComment() {
+      const token = localStorage.getItem("token");
+      try {
+        const { data } = await axios.post(
+          "http://localhost:3000/api/post/" + this.id + "/comment/",
+          {
+            comment: this.comment,
+          },
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        );
+        console.log(data);
+        this.$emit("refresh");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
