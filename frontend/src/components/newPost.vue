@@ -81,6 +81,7 @@ export default {
   flex: 1;
   background-color: #d2fafa;
   height: 35%;
+  min-height: 280px;
   margin: 20px 20px 20px 20px;
   border-radius: 10px;
   padding-top: 10px;
