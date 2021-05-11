@@ -21,7 +21,7 @@
 <script>
 import axios from "axios";
 import cardPost from "./cardPost";
-
+import config from "../config.json";
 export default {
   name: "allPosts",
   components: { cardPost },
@@ -36,7 +36,7 @@ export default {
       this.loading = true;
       const token = localStorage.getItem("token");
       try {
-        const { data } = await axios.get("http://localhost:3000/api/post", {
+        const { data } = await axios.get(config.endpoint + "/api/post", {
           headers: { Authorization: "Bearer " + token },
         });
         this.posts = data;
