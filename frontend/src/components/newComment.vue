@@ -3,6 +3,7 @@
     <form method="post" @submit.prevent="buttonNewComment">
       <div>
         <label for="comment"></label>
+        <hr />
         <input
           type="text"
           id="comment"
@@ -56,24 +57,33 @@ export default {
 </script>
 //----------------------------------------------------------------------------------------------------------------------
 <style scoped>
-.input {
+input {
+  margin-bottom: 15px;
+  margin-top: 15px;
   width: 500px;
+  max-width: 94%;
+  border-style: solid;
+  border-color: #31bcc6;
+  background-color: white;
 }
-.button {
+button {
   width: 120px;
   cursor: pointer;
   border: unset;
   font-size: 1.2em;
   box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
   background: #31bcc6;
-  margin-top: 40px;
-  margin-bottom: 60px;
   transition: 0.3s;
   color: white;
   font-weight: bold;
 }
-.button:hover {
+button:hover {
   border-radius: 10px 0 10px 0;
+}
+hr {
+  border: 2px solid #d6dfe2;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 /* .error {
   font-size: 11px;

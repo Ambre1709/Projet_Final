@@ -2,7 +2,7 @@
   <div class="card">
     <h2>{{ title }}</h2>
     <p>{{ content }}</p>
-    <p>Publié par {{ user.firstname }} {{ user.lastname }}</p>
+    <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
     <router-link :to="`/post/${id}`">Commentaires ...</router-link>
   </div>
 </template>
@@ -21,5 +21,8 @@ export default {
   padding: 1px 30px 30px 30px;
   background-color: white;
   border-radius: 10px;
+}
+.commDe {
+  font-style: italic;
 }
 </style>

@@ -1,31 +1,29 @@
 <template>
   <div>
     <div v-if="post">
-      <h1>{{ post.title }}</h1>
-      <p>{{ post.content }}</p>
-      <new-comment @refresh="fetchComments" :id="post.id"></new-comment>
-
-      <div :key="comment.id" v-for="comment of comments">
-        <!-- <pre>
-          <code>{{ comment }}</code>          
-        </pre> -->
+      <div class="le-post">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <!-- pour poster un commentaire -->
+        <new-comment @refresh="fetchComments" :id="post.id"></new-comment>
+      </div>
+      <!-- Début des commentaires -->
+      <div class="card" :key="comment.id" v-for="comment of comments">
         <p>
           {{ comment.comment }}
         </p>
-        <p>de {{ comment.User.firstName }} {{ comment.User.lastName }}</p>
+        <p class="commDe">
+          Publié par {{ comment.User.firstName }} {{ comment.User.lastName }}
+        </p>
         <div v-if="comment.User.id === me">
           <button @click.prevent="deleteComment(comment.id)">Supprimer</button>
         </div>
+        <!-- Fin des commentaires -->
       </div>
     </div>
     <div v-else>
       chargement...
     </div>
-    <!-- <p>{{ post.file }}</p> -->
-    <!-- <p>Publié par {{ user.firstname }} {{ user.lastname }}</p> -->
-    <!-- <div>
-      <deleteComment :idComm="comment.id" />
-    </div> -->
   </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
@@ -103,4 +101,28 @@ export default {
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------
-<style scoped></style>
+<style scoped>
+.le-post {
+  margin: 30px 20px 30px 20px;
+  padding: 1px 0px 30px 0px;
+  background-color: #d2fafa;
+  border-radius: 10px;
+}
+.card {
+  margin: 10px 20px 0px 20px;
+  padding: 1px 30px 30px 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+button {
+  cursor: pointer;
+  border: unset;
+  font-size: 1em;
+  background: rgb(216, 41, 41);
+  margin-top: 10px;
+  color: white;
+}
+.commDe {
+  font-style: italic;
+}
+</style>
