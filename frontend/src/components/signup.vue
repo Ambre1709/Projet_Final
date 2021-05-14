@@ -85,8 +85,8 @@ export default {
         console.log(res);
         this.$router.push("/login");
       } catch (error) {
-        this.message = error;
         console.log(error);
+        alert("Merci de remplir correctement les champs !");
       }
     },
   },

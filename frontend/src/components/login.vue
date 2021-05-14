@@ -64,6 +64,7 @@ export default {
           this.$router.push("/profile");
         })
         .catch((error) => {
+          alert("Authentification incorrect");
           this.error = error;
         });
     },

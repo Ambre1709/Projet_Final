@@ -168,9 +168,7 @@ export default {
         })
         .catch((error) => {
           console.log({ error });
-          if (error.status === 401) {
-            this.$router.push("/login");
-          }
+          alert("Le profil n'a pas pu être supprimé !");
         });
     },
   },
