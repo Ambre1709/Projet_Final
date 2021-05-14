@@ -71,13 +71,11 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-// import deletePost from "./deletePost";
 import cardPost from "./cardPost";
 
 export default {
   name: "profile",
   components: {
-    // deletePost,
     cardPost,
   },
   props: {

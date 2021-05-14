@@ -4,10 +4,15 @@
       <div class="le-post">
         <h1>{{ post.title }}</h1>
         <p>{{ post.content }}</p>
+        <div>
+          <!--à ajouter dans la "div v-if.... "":   v-if="post.User.id === me"-->
+          <button @click.prevent="deletePost(post.id)">Supprimer</button>
+        </div>
         <!-- pour poster un commentaire -->
         <new-comment @refresh="fetchComments" :id="post.id"></new-comment>
       </div>
       <!-- Début des commentaires -->
+      <h2>Commentaires :</h2>
       <div class="card" :key="comment.id" v-for="comment of comments">
         <p>
           {{ comment.comment }}
@@ -29,6 +34,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
+// import deletePost from "../components/deletePost";
 import config from "../config.json";
 import newComment from "./newComment";
 
@@ -36,6 +42,7 @@ export default {
   name: "onePost",
   components: {
     newComment,
+    // deletePost,
   },
   data() {
     return {
@@ -80,8 +87,18 @@ export default {
     async deleteComment(id) {
       console.log("delete comment id: ", id);
       const isConfirm = await confirm(
-        "êtes vous sure de supprimer le commentaire ?"
+        "Confirmez vous supprimer le commentaire ?"
       );
+      console.log({ isConfirm });
+      if (!isConfirm) {
+        return;
+      }
+      // delete comment id
+      // this.fetchComments();
+    },
+    async deletePost(id) {
+      console.log("delete post id: ", id);
+      const isConfirm = await confirm("Confirmez vous supprimer le post ?");
       console.log({ isConfirm });
       if (!isConfirm) {
         return;
@@ -115,12 +132,16 @@ export default {
   border-radius: 10px;
 }
 button {
+  width: 120px;
   cursor: pointer;
   border: unset;
   font-size: 1em;
-  background: rgb(216, 41, 41);
+  box-shadow: 5px 5px 15px -3px rgb(0 0 0 / 50%);
+  background: rgb(255, 61, 61);
   margin-top: 10px;
+  transition: 0.3s;
   color: white;
+  font-weight: bold;
 }
 .commDe {
   font-style: italic;

@@ -43,7 +43,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
   background-color: #31bcc6;
   margin: -10px -10px 0px -10px;
   height: 90px;
@@ -53,7 +52,6 @@ nav {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
   background-color: #d2fafa;
   margin: 0px -10px 0px -10px;
   height: 40px;

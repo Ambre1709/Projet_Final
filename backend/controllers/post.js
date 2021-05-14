@@ -34,8 +34,8 @@ exports.getAllPosts = (req, res, next) => {
     ],
     include: [{ model: User, attributes: ["firstname", "lastname"] }],
   })
-    .then((messages) => {
-      res.status(200).json(messages);
+    .then((posts) => {
+      res.status(200).json(posts);
     })
     .catch((error) => {
       res.status(400).json({
@@ -58,8 +58,8 @@ exports.getOnePost = (req, res, next) => {
     ],
     where: { id: req.params.id },
   })
-    .then((message) => {
-      res.status(200).json(message);
+    .then((post) => {
+      res.status(200).json(post);
     })
     .catch((error) => {
       res.status(404).json({
@@ -70,16 +70,19 @@ exports.getOnePost = (req, res, next) => {
 //----------------------------------------------------------------------------------------------------------------------
 // DELETEPOST
 exports.deletePost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
-    .then((message) => {
-      if (!message.idUser === userId || !isAdmin === true) {
-        if (message.image !== null) {
-          const filename = message.image.split(
-            "/images/"
-          )[1]; /*récuperer le nom du fichier à supprimer*/
+  Post.findOne({
+    where: { id: req.params.id },
+  })
+    .then((post) => {
+      if (!post.idUsers === userId || !isAdmin === true) {
+        if (post.image !== null) {
+          const filename =
+            post.image.split(
+              "/images/"
+            )[1]; /*récuperer le nom du fichier à supprimer*/
           fs.unlink(`images/${filename}`, () => {
             /*on le supprime avec unlink*/
-            message
+            post
               .destroy()
               .then(() =>
                 res.status(200).json({ message: "Message supprimé !" })
@@ -87,7 +90,7 @@ exports.deletePost = (req, res, next) => {
               .catch((error) => res.status(400).json({ error }));
           });
         } else {
-          message
+          post
             .destroy()
             .then(() => {
               res.status(200).json({
