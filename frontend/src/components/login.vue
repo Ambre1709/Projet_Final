@@ -52,7 +52,7 @@ export default {
   methods: {
     async buttonLogin() {
       await axios
-        .post("http://localhost:3000/api/auth/login", {
+        .post("/api/auth/login", {
           email: this.email,
           password: this.password,
         })
@@ -60,6 +60,7 @@ export default {
           {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("id", res.data.userId);
+            localStorage.setItem("isAdmin", res.data.isAdmin);
           }
           this.$router.push("/profile");
         })

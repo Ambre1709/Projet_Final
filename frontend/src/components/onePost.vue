@@ -5,8 +5,12 @@
         <h1>{{ post.title }}</h1>
         <p>{{ post.content }}</p>
         <div>
-          <!--à ajouter dans la "div v-if.... "":   v-if="post.User.id === me"-->
-          <button @click.prevent="deletePost(post.id)">Supprimer</button>
+          <button
+            v-if="post.idUser === me || isAdmin"
+            @click.prevent="deletePost(post.id)"
+          >
+            Supprimer
+          </button>
         </div>
         <!-- pour poster un commentaire -->
         <new-comment @refresh="fetchComments" :id="post.id"></new-comment>
@@ -20,7 +24,7 @@
         <p class="commDe">
           Publié par {{ comment.User.firstName }} {{ comment.User.lastName }}
         </p>
-        <div v-if="comment.User.id === me">
+        <div v-if="comment.User.id === me || isAdmin">
           <button @click.prevent="deleteComment(comment.id)">Supprimer</button>
         </div>
         <!-- Fin des commentaires -->
@@ -34,7 +38,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-import config from "../config.json";
 import newComment from "./newComment";
 
 export default {
@@ -47,19 +50,14 @@ export default {
       post: null,
       comments: [],
       me: 0,
+      isAdmin: false,
     };
   },
 
   methods: {
     async fetchPost() {
-      const token = localStorage.getItem("token");
       try {
-        const { data } = await axios.get(
-          "http://localhost:3000/api/post/" + this.$route.params.id,
-          {
-            headers: { Authorization: "Bearer " + token },
-          }
-        );
+        const { data } = await axios.get("/api/post/" + this.$route.params.id);
         this.post = data;
       } catch (error) {
         console.log("error");
@@ -67,13 +65,9 @@ export default {
       this.loading = false;
     },
     async fetchComments() {
-      const token = localStorage.getItem("token");
       try {
         const { data } = await axios.get(
-          config.endpoint + "/api/post/" + this.$route.params.id + "/comments",
-          {
-            headers: { Authorization: "Bearer " + token },
-          }
+          "/api/post/" + this.$route.params.id + "/comments"
         );
         this.comments = data;
       } catch (error) {
@@ -91,25 +85,16 @@ export default {
       if (!isConfirm) {
         return;
       }
-      let token = localStorage.getItem("token");
       axios
-        .delete(
-          "http://localhost:3000/api/post/" +
-            this.$route.params.id +
-            "/comment" +
-            //this.idComment,
-            //récupérer l'id du com
-            { headers: { Authorization: "Bearer " + token } }
-        )
+        .delete("/api/post/" + this.$route.params.id + "/comment/" + id)
         .then(() => {
           alert("Votre commentaire a bien été supprimé !");
-          document.location.reload();
+
+          this.fetchComments();
         })
         .catch((error) => {
           console.log({ error });
         });
-      // delete comment id
-      // this.fetchComments();
     },
     async deletePost(id) {
       console.log("delete post id: ", id);
@@ -118,11 +103,8 @@ export default {
       if (!isConfirm) {
         return;
       }
-      let token = localStorage.getItem("token");
       axios
-        .delete("http://localhost:3000/api/post/" + this.$route.params.id, {
-          headers: { Authorization: "Bearer " + token },
-        })
+        .delete("/api/post/" + this.$route.params.id)
         .then(() => {
           alert("Votre commentaire a bien été supprimé !");
           document.location.reload();
@@ -130,14 +112,13 @@ export default {
         .catch((error) => {
           console.log({ error });
         });
-      // delete comment id
-      // this.fetchComments();
     },
   },
   mounted() {
     this.fetchPost();
     this.fetchComments();
     this.me = Number(localStorage.getItem("id"));
+    this.isAdmin = localStorage.getItem("isAdmin") === "true";
     // Number("11"); // 11
     // Number("tugudu"); // NaN
     // isNaN(Number("tugudu")) // true

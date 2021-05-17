@@ -35,15 +35,11 @@ export default {
   },
   methods: {
     async buttonNewComment() {
-      const token = localStorage.getItem("token");
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/api/post/" + this.id + "/comment/",
+          "/api/post/" + this.id + "/comment/",
           {
             comment: this.comment,
-          },
-          {
-            headers: { Authorization: "Bearer " + token },
           }
         );
         console.log(data);

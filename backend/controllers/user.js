@@ -93,11 +93,15 @@ exports.login = async (req, res, next) => {
     }
     res.status(200).json({
       userId: user.id /* avec l'id*/,
+      isAdmin: user.isAdmin,
       firstname: user.firstname,
       lastname: user.lastname,
       token: jwt.sign(
         /*et avec un token /// 3 arguments demandés: */
-        { userId: user.id } /*correspondance de l'id utilisateur*/,
+        {
+          userId: user.id,
+          isAdmin: user.isAdmin,
+        } /*correspondance de l'id utilisateur*/,
         process.env.TOKEN /*le token*/,
         { expiresIn: "24h" }
       ),
@@ -131,7 +135,7 @@ exports.modifyProfile = (req, res, next) => {
   }
 
   User.findOne({ where: { id: req.params.id } }).then((user) => {
-    if (user.id === res.locals.userId || isAdmin === true) {
+    if (user.id === res.locals.userId || res.locals.isAdmin) {
       user
         .update({
           firstname: req.body.firstname,
@@ -154,30 +158,32 @@ exports.modifyProfile = (req, res, next) => {
   });
 };
 //----------------------------------------------------------------------------------------------------------------------
-exports.deleteProfile = (req, res, next) => {
-  User.findOne({ _id: req.params.id })
-    .then((user) => {
-      if (user.id === userId || isAdmin === true) {
-        user
-          .destroy()
-          .then(() => {
-            res.status(200).json({
-              message: "Profil supprimé !",
-            });
-          })
-          .catch((error) => {
-            res.status(400).json({
-              error: "Le profil n'a pas pu être supprimé !",
-            });
-          });
-      }
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: "Le profil n'a pas pu être supprimé !",
+exports.deleteProfile = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.params.id } });
+    if (!user) {
+      res.status(404).json({
+        message: "user not found",
       });
+      return;
+    }
+    if (user.id !== res.locals.userId && res.locals.isAdmin) {
+      res.status(403).json({
+        message: "Not authorized",
+      });
+      return;
+    }
+    await user.destroy();
+    res.status(200).json({
+      message: "user deleted",
     });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
 };
+
 //----------------------------------------------------------------------------------------------------------------------
 exports.getAllPostProfile = (req, res, next) => {
   Post.findAll({

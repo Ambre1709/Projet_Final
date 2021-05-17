@@ -48,7 +48,6 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     buttonNewPost() {
-      let token = localStorage.getItem("token");
       const data = new FormData();
       //avec image
       if (this.file !== null) {
@@ -63,9 +62,7 @@ export default {
         data.append("content", this.content);
       }
       axios
-        .post("http://localhost:3000/api/post/", data, {
-          headers: { Authorization: "Bearer " + token },
-        })
+        .post("/api/post/", data)
         .then(() => {
           alert("Votre message a bien été envoyé !");
           window.location.reload();

@@ -31,24 +31,29 @@ exports.getAllComment = (req, res, next) => {
     });
 };
 //----------------------------------------------------------------------------------------------------------------------
-exports.deleteComment = (req, res, next) => {
-  Comment.findOne({
-    where: { idPosts: req.params.idPosts, id: req.params.id },
-  }).then((comment) => {
-    if (!comment.idUsers === userId || !isAdmin === true) {
-      comment
-        .destroy()
-        .then(() => {
-          res.status(200).json({
-            message: "Commentaire supprimé !",
-          });
-        })
-        .catch((error) => {
-          res.status(400).json({
-            error: error,
-            message: "Le commentaire n'a pas pu être supprimé",
-          });
-        });
+exports.deleteComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findOne({ where: { id: req.params.id } });
+    if (!comment) {
+      res.status(404).json({
+        message: "comment not found",
+      });
+      return;
     }
-  });
+
+    if (comment.idUser !== res.locals.userId && !res.locals.isAdmin) {
+      res.status(403).json({
+        message: "Not authorized",
+      });
+      return;
+    }
+    await comment.destroy();
+    res.status(200).json({
+      message: "comment deleted",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
 };

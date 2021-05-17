@@ -96,12 +96,9 @@ export default {
 
   methods: {
     loadProfile() {
-      let token = localStorage.getItem("token");
       let userId = localStorage.getItem("id");
       axios
-        .get("http://localhost:3000/api/auth/profile/" + userId, {
-          headers: { Authorization: "Bearer " + token },
-        })
+        .get("/api/auth/profile/" + userId)
         .then((res) => {
           this.dataProfile = res.data;
         })
@@ -117,12 +114,9 @@ export default {
       this.$router.push("/login");
     },
     allPostsProfile() {
-      let token = localStorage.getItem("token");
       let userId = localStorage.getItem("id");
       axios
-        .get("http://localhost:3000/api/auth/profile/" + userId + "/posts", {
-          headers: { Authorization: "Bearer " + token },
-        })
+        .get("/api/auth/profile/" + userId + "/posts")
         .then((res) => {
           this.posts = res.data;
         })
@@ -134,16 +128,13 @@ export default {
         });
     },
     updateProfile() {
-      let token = localStorage.getItem("token");
       let userId = localStorage.getItem("id");
       const data = {
         firstname: this.firstname,
         lastname: this.lastname,
       };
       axios
-        .put("http://localhost:3000/api/auth/profile/" + userId, data, {
-          headers: { Authorization: "Bearer " + token },
-        })
+        .put("/api/auth/profile/" + userId, data)
         .then((res) => {
           alert("Votre profil a bien été mis à jour !");
           this.dataProfile = res.data.user;
@@ -155,13 +146,17 @@ export default {
           }
         });
     },
-    deleteProfile() {
-      let token = localStorage.getItem("token");
+    async deleteProfile() {
+      const isConfirm = await confirm(
+        "Confirmez vous supprimer votre profile ?"
+      );
+      console.log({ isConfirm });
+      if (!isConfirm) {
+        return;
+      }
       let userId = localStorage.getItem("id");
       axios
-        .delete("http://localhost:3000/api/auth/profile/" + userId, {
-          headers: { Authorization: "Bearer " + token },
-        })
+        .delete("/api/auth/profile/" + userId)
         .then(() => {
           alert("Votre compte est supprimé !");
           this.$router.push("/");

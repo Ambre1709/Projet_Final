@@ -69,46 +69,29 @@ exports.getOnePost = (req, res, next) => {
 };
 //----------------------------------------------------------------------------------------------------------------------
 // DELETEPOST
-exports.deletePost = (req, res, next) => {
-  Post.findOne({
-    where: { id: req.params.id },
-  })
-    .then((post) => {
-      if (!post.idUsers === userId || !isAdmin === true) {
-        if (post.image !== null) {
-          const filename =
-            post.image.split(
-              "/images/"
-            )[1]; /*récuperer le nom du fichier à supprimer*/
-          fs.unlink(`images/${filename}`, () => {
-            /*on le supprime avec unlink*/
-            post
-              .destroy()
-              .then(() =>
-                res.status(200).json({ message: "Message supprimé !" })
-              )
-              .catch((error) => res.status(400).json({ error }));
-          });
-        } else {
-          post
-            .destroy()
-            .then(() => {
-              res.status(200).json({
-                message: "Message supprimé !",
-              });
-            })
-            .catch((error) => {
-              res.status(400).json({
-                error: error,
-                message: "Le message n'a pas pu être supprimé",
-              });
-            });
-        }
-      }
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
+exports.deletePost = async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ where: { id: req.params.id } });
+    if (!post) {
+      res.status(404).json({
+        message: "Post not found",
       });
+      return;
+    }
+
+    if (post.idUser !== res.locals.userId && !res.locals.isAdmin) {
+      res.status(403).json({
+        message: "Not authorized",
+      });
+      return;
+    }
+    await post.destroy();
+    res.status(200).json({
+      message: "Post deleted",
     });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
 };

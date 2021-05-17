@@ -78,10 +78,7 @@ export default {
         password: this.password,
       };
       try {
-        const res = await axios.post(
-          "http://localhost:3000/api/auth/signup",
-          data
-        );
+        const res = await axios.post("/api/auth/signup", data);
         console.log(res);
         this.$router.push("/login");
       } catch (error) {
