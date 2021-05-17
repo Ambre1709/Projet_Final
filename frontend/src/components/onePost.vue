@@ -34,7 +34,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-// import deletePost from "../components/deletePost";
 import config from "../config.json";
 import newComment from "./newComment";
 
@@ -42,7 +41,6 @@ export default {
   name: "onePost",
   components: {
     newComment,
-    // deletePost,
   },
   data() {
     return {
@@ -93,6 +91,23 @@ export default {
       if (!isConfirm) {
         return;
       }
+      let token = localStorage.getItem("token");
+      axios
+        .delete(
+          "http://localhost:3000/api/post/" +
+            this.$route.params.id +
+            "/comment" +
+            //this.idComment,
+            //récupérer l'id du com
+            { headers: { Authorization: "Bearer " + token } }
+        )
+        .then(() => {
+          alert("Votre commentaire a bien été supprimé !");
+          document.location.reload();
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
       // delete comment id
       // this.fetchComments();
     },
@@ -103,6 +118,18 @@ export default {
       if (!isConfirm) {
         return;
       }
+      let token = localStorage.getItem("token");
+      axios
+        .delete("http://localhost:3000/api/post/" + this.$route.params.id, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then(() => {
+          alert("Votre commentaire a bien été supprimé !");
+          document.location.reload();
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
       // delete comment id
       // this.fetchComments();
     },
