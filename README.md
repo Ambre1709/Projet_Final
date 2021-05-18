@@ -17,8 +17,8 @@
 - npm install
 - Démarrez l'application: npm run serve
 - Rendez-vous sur :
-  Local: http://localhost:8080/
-  Network: http://192.168.1.64:8080/)
+  ( Local: http://localhost:8080/
+  Network: http://192.168.1.64:8080/ )
 
 #### 💾 BASE DE DONNÉES :
 
@@ -32,6 +32,6 @@
 
 #### 👷 ADMIN :
 
-Utilisateur par defaut: niveau d'accès 0.
-Admin le niveau d'accès doit être modifié à 1.
-Après modification du niveau d'accès, se reconnecter pour mettre à jour.
+- Utilisateur par defaut: niveau d'accès 0.
+- Admin le niveau d'accès doit être modifié à 1.
+- Après modification du niveau d'accès, se reconnecter pour mettre à jour.

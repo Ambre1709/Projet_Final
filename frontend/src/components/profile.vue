@@ -13,7 +13,6 @@
           :user="post.User"
           :id="post.id"
         />
-        <!-- <deletePost :id="post.id" /> -->
       </div>
       <div id="profil">
         <!-- Email, Nom et prénom du profil -->
@@ -109,10 +108,7 @@ export default {
           }
         });
     },
-    Logout() {
-      localStorage.clear();
-      this.$router.push("/login");
-    },
+
     allPostsProfile() {
       let userId = localStorage.getItem("id");
       axios

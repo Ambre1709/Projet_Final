@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+  <div>
     <login />
   </div>
 </template>

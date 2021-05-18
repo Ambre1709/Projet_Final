@@ -32,6 +32,11 @@ const routes = [
     name: "post",
     component: () => import("../components/onePost.vue"),
   },
+  {
+    path: "/404",
+    name: "404",
+    component: () => import("../views/404.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

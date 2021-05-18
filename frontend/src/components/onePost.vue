@@ -89,7 +89,6 @@ export default {
         .delete("/api/post/" + this.$route.params.id + "/comment/" + id)
         .then(() => {
           alert("Votre commentaire a bien été supprimé !");
-
           this.fetchComments();
         })
         .catch((error) => {
@@ -107,7 +106,7 @@ export default {
         .delete("/api/post/" + this.$route.params.id)
         .then(() => {
           alert("Votre commentaire a bien été supprimé !");
-          document.location.reload();
+          this.fetchComments();
         })
         .catch((error) => {
           console.log({ error });

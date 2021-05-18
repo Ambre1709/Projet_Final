@@ -8,7 +8,7 @@
         <li><router-link to="/feed">Accueil</router-link></li>
         <li><router-link to="/profile"> Profil</router-link></li>
         <li>
-          <a to="/login" v-on:click="Logout()">
+          <a to="/" v-on:click="Logout()">
             <span class="deco">Déconnexion</span></a
           >
         </li>
@@ -24,7 +24,8 @@ export default {
   methods: {
     Logout() {
       localStorage.clear();
-      this.$router.push("/login");
+      this.$router.replace("/");
+      document.location.reload();
     },
   },
 };
