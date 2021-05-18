@@ -1,8 +1,8 @@
-Ce projet est développé avec VueJS, NodeJS, Express, Sequelize et Mysql
+## 🔧 Ce projet est développé avec VueJS, NodeJS, Express, Sequelize et Mysql
 
-1- Clôner le repo
+## 🔨 Clôner le repo
 
-BACKEND :
+### 🚩 BACKEND :
 
 1- Ouvrir votre terminal
 2- Allez dans le dossier backend : cd backend
@@ -10,7 +10,7 @@ BACKEND :
 4- npm install nodemon
 5- Démarrez l'application: nodemon server
 
-FRONTEND :
+### 🚩 FRONTEND :
 
 1- Ouvrir votre terminal
 2- Allez dans le dossier frontend : cd frontend
@@ -20,7 +20,7 @@ FRONTEND :
 Local: http://localhost:8080/
 Network: http://192.168.1.64:8080/)
 
-BASE DE DONNÉES :
+### 💾 BASE DE DONNÉES :
 
 1- Installation de la base de données Entrez: - npm i sequelize - sequelize init
 2- Dans le dossier backend modifer le mot de passe dans config/config.json
@@ -30,7 +30,7 @@ BASE DE DONNÉES :
 6- Puis lancer le serveur avec "npm start"
 7- Installer le logiciel WAMP
 
-ADMIN :
+### 👷 ADMIN :
 
 Utilisateur par defaut: niveau d'accès 0.
 Admin le niveau d'accès doit être modifié à 1.
