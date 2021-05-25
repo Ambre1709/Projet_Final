@@ -4,6 +4,8 @@
       <div class="le-post">
         <h1>{{ post.title }}</h1>
         <p>{{ post.content }}</p>
+        <img :src="post.image" :alt="post.title" />
+        <!-- <img src="http://localhost:3000/images/monimage.png" alt="Mon titree"> -->
         <div>
           <button
             v-if="post.idUser === me || isAdmin"

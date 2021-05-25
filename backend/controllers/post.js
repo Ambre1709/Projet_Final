@@ -1,4 +1,5 @@
 const { Post, User } = require("../models");
+const fs = require("fs-extra");
 //----------------------------------------------------------------------------------------------------------------------
 // CREATEPOST
 exports.createPost = (req, res, next) => {
@@ -7,8 +8,8 @@ exports.createPost = (req, res, next) => {
   }
   Post.create({
     idUser: res.locals.userId,
-    title: req.body.title, //titre du post
-    content: req.body.content, //contenu du post
+    title: req.body.title,
+    content: req.body.content,
     /*le front end ne connaissant pas l'url de l'image il faut le définir manuellement*/
     image:
       req.body.content && req.file
@@ -45,27 +46,32 @@ exports.getAllPosts = (req, res, next) => {
 };
 //----------------------------------------------------------------------------------------------------------------------
 //GETONEPOST
-exports.getOnePost = (req, res, next) => {
-  Post.findOne({
-    attributes: [
-      "id",
-      "idUser",
-      "title",
-      "content",
-      "image",
-      "createdAt",
-      "updatedAt",
-    ],
-    where: { id: req.params.id },
-  })
-    .then((post) => {
-      res.status(200).json(post);
-    })
-    .catch((error) => {
-      res.status(404).json({
-        error: error,
-      });
+exports.getOnePost = async (req, res, next) => {
+  try {
+    const post = await Post.findOne({
+      attributes: [
+        "id",
+        "idUser",
+        "title",
+        "content",
+        "image",
+        "createdAt",
+        "updatedAt",
+      ],
+      where: { id: req.params.id },
     });
+    if (!post) {
+      res.status(404).json({
+        message: "post not found",
+      });
+      return;
+    }
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({
+      error: error,
+    });
+  }
 };
 //----------------------------------------------------------------------------------------------------------------------
 // DELETEPOST
@@ -85,9 +91,12 @@ exports.deletePost = async (req, res, next) => {
       });
       return;
     }
-    // if (message.image !== null) {
-    //   const filename = message.image.split("/images/")[1];
-    //   fs.unlink(`images/${filename}`,
+
+    if (post.image !== null) {
+      const filename = post.image.split("/images/")[1];
+      await fs.unlink(`images/${filename}`);
+    }
+
     await post.destroy();
     res.status(200).json({
       message: "Post deleted",

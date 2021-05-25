@@ -11,6 +11,7 @@
           :title="post.title"
           :content="post.content"
           :user="post.User"
+          :image="post.image"
           :id="post.id"
         />
       </div>

@@ -4,9 +4,14 @@ import router from "./router";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000";
-axios.defaults.headers = {
-  Authorization: "Bearer " + localStorage.getItem("token"),
-};
+
+axios.interceptors.request.use((config) => {
+  config.headers.common = {
+    ...config.headers.common,
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  };
+  return config;
+});
 
 axios.interceptors.response.use(
   (response) => {

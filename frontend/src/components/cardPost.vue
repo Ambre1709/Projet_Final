@@ -2,6 +2,9 @@
   <div class="card">
     <h2>{{ title }}</h2>
     <p>{{ content }}</p>
+    <div>
+      <img :src="image" style="width: 100%" />
+    </div>
     <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
     <router-link :to="`/post/${id}`">Commentaires ...</router-link>
   </div>
@@ -9,7 +12,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 export default {
-  props: ["title", "content", "user", "id"],
+  props: ["title", "content", "user", "id", "image"],
 };
 </script>
 //----------------------------------------------------------------------------------------------------------------------

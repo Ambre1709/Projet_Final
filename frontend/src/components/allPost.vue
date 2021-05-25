@@ -1,12 +1,13 @@
 <template>
   <div v-if="!loading" id="allPost">
     <h3 class="title">Liste des posts</h3>
-    <cardPost
+    <card-post
       :key="post.id"
       v-for="post of posts"
       :title="post.title"
       :content="post.content"
       :user="post.User"
+      :image="post.image"
       :id="post.id"
     />
   </div>

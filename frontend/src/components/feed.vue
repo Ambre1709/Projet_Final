@@ -45,6 +45,9 @@ export default {
   flex-direction: column;
 }
 #ban {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url("../assets/ban.jpg");
   height: 300px;
   background-position: top;
@@ -54,7 +57,8 @@ export default {
 }
 .tittleban {
   color: white;
-  text-align: center;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.7);
 }
 #container {
   display: flex;
