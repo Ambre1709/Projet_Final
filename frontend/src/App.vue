@@ -5,7 +5,7 @@
     </div>
     <nav id="nav">
       <ul>
-        <li><router-link to="/feed">Accueil</router-link></li>
+        <li><router-link to="/">Accueil</router-link></li>
         <li><router-link to="/profile"> Profil</router-link></li>
         <li>
           <a to="/" v-on:click="Logout()">
@@ -24,8 +24,7 @@ export default {
   methods: {
     Logout() {
       localStorage.clear();
-      this.$router.replace("/");
-      document.location.reload();
+      this.$router.replace("/login");
     },
   },
 };
