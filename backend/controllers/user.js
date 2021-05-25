@@ -157,6 +157,35 @@ exports.modifyProfile = (req, res, next) => {
     }
   });
 };
+// exports.modifyProfile = async (req, res, next) => {
+//   try {
+//     if (!req.body.firstname || !req.body.lastname) {
+//       res.status(400).json({
+//         error: "Veuillez remplir tous les champs !",
+//       });
+//       return;
+//     }
+//     User.findOne({ where: { id: req.params.id } });
+//     if (user.id === res.locals.userId || res.locals.isAdmin) {
+//       await user.update({
+//         firstname: req.body.firstname,
+//         lastname: req.body.lastname,
+//       });
+//       res.status(200).json({
+//         message: "Profil modifié !",
+//         user: {
+//           firstname: user.firstname,
+//           lastname: user.lastname,
+//           email: user.email,
+//         },
+//       });
+//     }
+//   } catch (error) {
+//     res.status(400).json({
+//       error: error.message,
+//     });
+//   }
+// };
 //----------------------------------------------------------------------------------------------------------------------
 exports.deleteProfile = async (req, res, next) => {
   try {

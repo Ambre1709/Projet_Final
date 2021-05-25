@@ -1,8 +1,14 @@
 <template>
   <div>
     <div id="banniere">
-      <div><img id="ban" src="../assets/ban.jpg" /></div>
-      <div><h1 class="tittleban">FEED</h1></div>
+      <div id="ban">
+        <div class="tittleban">
+          <h1>
+            Une entreprise spécialisée dans la grande distribution
+          </h1>
+        </div>
+      </div>
+      <h1>FEED</h1>
     </div>
     <div id="container">
       <div class="allpost">
@@ -39,15 +45,16 @@ export default {
   flex-direction: column;
 }
 #ban {
-  display: flex;
-  width: 100%;
+  background-image: url("../assets/ban.jpg");
+  height: 300px;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
   margin: 0px -10px 0px -10px;
-  overflow: hidden;
 }
 .tittleban {
-  display: flex;
-  justify-content: center;
   color: white;
+  text-align: center;
 }
 #container {
   display: flex;

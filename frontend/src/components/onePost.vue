@@ -55,6 +55,7 @@ export default {
   },
 
   methods: {
+    // Pour charger le post selectionné
     async fetchPost() {
       try {
         const { data } = await axios.get("/api/post/" + this.$route.params.id);
@@ -62,8 +63,8 @@ export default {
       } catch (error) {
         console.log("error");
       }
-      this.loading = false;
     },
+    // Pour charger les commentaires du post
     async fetchComments() {
       try {
         const { data } = await axios.get(
@@ -76,6 +77,7 @@ export default {
         }
       }
     },
+    // Pour delete le commentaire séléctionné
     async deleteComment(id) {
       console.log("delete comment id: ", id);
       const isConfirm = await confirm(
@@ -89,12 +91,13 @@ export default {
         .delete("/api/post/" + this.$route.params.id + "/comment/" + id)
         .then(() => {
           alert("Votre commentaire a bien été supprimé !");
-          this.fetchComments();
+          document.location.reload();
         })
         .catch((error) => {
           console.log({ error });
         });
     },
+    // Pour delete le post séléctionné
     async deletePost(id) {
       console.log("delete post id: ", id);
       const isConfirm = await confirm("Confirmez vous supprimer le post ?");
@@ -106,7 +109,7 @@ export default {
         .delete("/api/post/" + this.$route.params.id)
         .then(() => {
           alert("Votre commentaire a bien été supprimé !");
-          this.fetchComments();
+          this.$router.push("/feed");
         })
         .catch((error) => {
           console.log({ error });
@@ -118,9 +121,6 @@ export default {
     this.fetchComments();
     this.me = Number(localStorage.getItem("id"));
     this.isAdmin = localStorage.getItem("isAdmin") === "true";
-    // Number("11"); // 11
-    // Number("tugudu"); // NaN
-    // isNaN(Number("tugudu")) // true
   },
 };
 </script>
