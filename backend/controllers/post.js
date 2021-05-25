@@ -2,7 +2,7 @@ const { Post, User } = require("../models");
 //----------------------------------------------------------------------------------------------------------------------
 // CREATEPOST
 exports.createPost = (req, res, next) => {
-  if (!req.body.title === "" || !req.body.content === "") {
+  if (req.body.title === "" || req.body.content === "") {
     return res.status(400).json({ error: "Merci de remplir tous les champs." });
   }
   Post.create({
@@ -85,6 +85,9 @@ exports.deletePost = async (req, res, next) => {
       });
       return;
     }
+    // if (message.image !== null) {
+    //   const filename = message.image.split("/images/")[1];
+    //   fs.unlink(`images/${filename}`,
     await post.destroy();
     res.status(200).json({
       message: "Post deleted",
