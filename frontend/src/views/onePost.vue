@@ -4,8 +4,8 @@
       <div class="le-post">
         <h1>{{ post.title }}</h1>
         <p>{{ post.content }}</p>
-        <img :src="post.image" :alt="post.title" />
-        <!-- <img src="http://localhost:3000/images/monimage.png" alt="Mon titree"> -->
+        <img :src="post.image" />
+        <!-- <img src="http://localhost:3000/images/monimage.png"> -->
         <div>
           <button
             v-if="post.idUser === me || isAdmin"
@@ -40,7 +40,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-import newComment from "./newComment";
+import newComment from "../components/newComment";
 
 export default {
   name: "onePost",
@@ -83,7 +83,7 @@ export default {
     async deleteComment(id) {
       console.log("delete comment id: ", id);
       const isConfirm = await confirm(
-        "Confirmez vous supprimer le commentaire ?"
+        "Confirmez vous la suppression du commentaire ?"
       );
       console.log({ isConfirm });
       if (!isConfirm) {
@@ -102,7 +102,9 @@ export default {
     // Pour delete le post séléctionné
     async deletePost(id) {
       console.log("delete post id: ", id);
-      const isConfirm = await confirm("Confirmez vous supprimer le post ?");
+      const isConfirm = await confirm(
+        "Confirmez vous la suppression du post ?"
+      );
       console.log({ isConfirm });
       if (!isConfirm) {
         return;
@@ -110,8 +112,8 @@ export default {
       axios
         .delete("/api/post/" + this.$route.params.id)
         .then(() => {
-          alert("Votre commentaire a bien été supprimé !");
-          this.$router.push("/feed");
+          alert("Votre post a bien été supprimé !");
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log({ error });
@@ -135,7 +137,7 @@ export default {
   border-radius: 10px;
 }
 .card {
-  margin: 10px 20px 0px 20px;
+  margin: 10px 20px 20px 20px;
   padding: 1px 30px 30px 30px;
   background-color: white;
   border-radius: 10px;
@@ -154,5 +156,13 @@ button {
 }
 .commDe {
   font-style: italic;
+}
+img {
+  max-width: 60%;
+}
+@media screen and (max-width: 1130px) {
+  img {
+    max-width: 90%;
+  }
 }
 </style>

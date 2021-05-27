@@ -22,8 +22,8 @@
 </template>
 //----------------------------------------------------------------------------------------------------------------------
 <script>
-import allPost from "./allPost";
-import newPost from "./newPost";
+import allPost from "../components/allPost";
+import newPost from "../components/newPost";
 export default {
   name: "feed",
   components: {

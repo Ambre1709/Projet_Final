@@ -44,6 +44,7 @@ export default {
         );
         console.log(data);
         this.$emit("refresh");
+        alert("Votre commentaire a bien été envoyé !");
       } catch (error) {
         console.log(error);
       }

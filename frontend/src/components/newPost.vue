@@ -1,7 +1,7 @@
 <template>
   <div class="newpost">
     <form method="post" @submit.prevent="buttonNewPost">
-      <h3>Nouveau message</h3>
+      <h3>Nouveau post</h3>
       <div>
         <label for="title">Titre :</label><br />
         <input
@@ -77,8 +77,7 @@ export default {
 .newpost {
   flex: 1;
   background-color: #d2fafa;
-  height: 35%;
-  min-height: 280px;
+  height: 290px;
   margin: 20px 20px 20px 20px;
   border-radius: 10px;
   padding-top: 10px;

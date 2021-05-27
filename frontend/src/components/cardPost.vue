@@ -3,7 +3,9 @@
     <h2>{{ title }}</h2>
     <p>{{ content }}</p>
     <div>
-      <img :src="image" style="width: 100%" />
+      <router-link :to="`/post/${id}`">
+        <img :src="image" />
+      </router-link>
     </div>
     <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
     <router-link :to="`/post/${id}`">Commentaires ...</router-link>
@@ -27,5 +29,13 @@ export default {
 }
 .commDe {
   font-style: italic;
+}
+img {
+  max-width: 60%;
+}
+@media screen and (max-width: 1130px) {
+  img {
+    max-width: 90%;
+  }
 }
 </style>

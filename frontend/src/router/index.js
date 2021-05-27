@@ -4,27 +4,27 @@ const routes = [
   {
     path: "/",
     name: "feed",
-    component: () => import("../components/feed.vue"),
+    component: () => import("../views/feed.vue"),
   },
   {
     path: "/signup",
     name: "signup",
-    component: () => import("../components/signup.vue"),
+    component: () => import("../views/signup.vue"),
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("../components/login.vue"),
+    component: () => import("../views/login.vue"),
   },
   {
     path: "/profile",
     name: "profile",
-    component: () => import("../components/profile.vue"),
+    component: () => import("../views/profile.vue"),
   },
   {
     path: "/post/:id",
     name: "post",
-    component: () => import("../components/onePost.vue"),
+    component: () => import("../views/onePost.vue"),
   },
   {
     path: "/404",

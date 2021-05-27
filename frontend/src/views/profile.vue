@@ -71,7 +71,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-import cardPost from "./cardPost";
+import cardPost from "../components/cardPost";
 
 export default {
   name: "profile",
@@ -145,7 +145,7 @@ export default {
     },
     async deleteProfile() {
       const isConfirm = await confirm(
-        "Confirmez vous supprimer votre profile ?"
+        "Confirmez vous la suppression du profil ?"
       );
       console.log({ isConfirm });
       if (!isConfirm) {
@@ -156,7 +156,7 @@ export default {
         .delete("/api/auth/profile/" + userId)
         .then(() => {
           alert("Votre compte est supprimé !");
-          this.$router.push("/");
+          this.$router.push("/signup");
         })
         .catch((error) => {
           console.log({ error });
