@@ -5,7 +5,6 @@ exports.createComment = (req, res, next) => {
   if (!req.body.comment) {
     return res.status(400).json({ error: "Merci de remplir le champ." });
   }
-  console.log(req.params);
   Comment.create({
     idUser: res.locals.userId,
     idPost: req.params.postId,

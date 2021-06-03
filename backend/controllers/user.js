@@ -29,51 +29,39 @@ const regexEmail =
 //----------------------------------------------------------------------------------------------------------------------
 //SIGNUP
 exports.signup = async (req, res, next) => {
-  if (!regexEmail.test(req.body.email)) {
+  const { email, firstname, lastname, password } = req.body;
+  if (!regexEmail.test(email)) {
     return res.status(400).json({ error: "Email incorrect" });
   }
-  if (!schema.validate(req.body.password)) {
+  if (!schema.validate(password)) {
     res.status(400).json({
       error:
         "le mot de passe doit contenir au moins 8 caractères dont 1 chiffre, 1 lettre majuscule et 1 minuscule",
     });
+    return;
   }
-  if (
-    !req.body.email ||
-    !req.body.firstname ||
-    !req.body.lastname ||
-    !req.body.password
-  ) {
-    // si vide oun'existe pas
-    return res
-      .status(400)
-      .json({ error: "Merci de remplir tous les champs !" });
-  }
+  const isFieldsEmpty = !email || !firstname || !lastname || !password;
 
-  bcrypt
-    .hash(
-      req.body.password,
-      10
-    ) /*on hash le mdp et on execute 10 fois l'algorithme*/
-    .then((hash) => {
-      /*on récup le hash*/
-      const user = User.create({
-        email: req.body.email,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        password: hash,
-      })
-        .then((user) => {
-          res.status(201).json({
-            userId: user.id,
-            isAdmin: user.isAdmin,
-          });
-        })
-        .catch((error) =>
-          res.status(500).json({ error })
-        ); /*500 erreur serveur*/
-    })
-    .catch((error) => res.status(500).json({ error })); /*500 erreur serveur*/
+  if (isFieldsEmpty) {
+    // si vide oun'existe pas
+    res.status(400).json({ error: "Merci de remplir tous les champs !" });
+    return;
+  }
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      email: email,
+      firstname: firstname,
+      lastname: lastname,
+      password: hash,
+    });
+    res.status(201).json({
+      userId: user.id,
+      isAdmin: user.isAdmin,
+    });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };
 //----------------------------------------------------------------------------------------------------------------------
 //LOGIN

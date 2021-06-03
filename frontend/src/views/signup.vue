@@ -77,13 +77,13 @@ export default {
         email: this.email,
         password: this.password,
       };
+      console.table(data);
       try {
         const res = await axios.post("/api/auth/signup", data);
         console.log(res);
         this.$router.push("/login");
       } catch (error) {
-        console.log(error);
-        alert("Merci de remplir correctement les champs !");
+        alert(error?.response?.data?.error || "Une erreur est survenue.");
       }
     },
   },

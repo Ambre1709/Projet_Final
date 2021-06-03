@@ -14,7 +14,7 @@
       <button type="submit">Envoyer</button>
     </form>
     <div class="error" v-if="error">
-      {{ error.error }}
+      {{ error }}
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@
 import axios from "axios";
 
 export default {
-  name: "newComment",
+  name: "NewComment",
   props: {
     id: { type: Number },
   },
@@ -35,16 +35,15 @@ export default {
   },
   methods: {
     async buttonNewComment() {
+      this.error = "";
       try {
-        const { data } = await axios.post(
-          "/api/post/" + this.id + "/comment/",
-          {
-            comment: this.comment,
-          }
-        );
-        console.log(data);
+        await axios.post("/api/post/" + this.id + "/comment/", {
+          comment: this.comment,
+        });
         this.$emit("refresh");
-        alert("Votre commentaire a bien été envoyé !");
+
+        this.comment = "";
+        this.error = "Votre commentaire a bien été envoyé !";
       } catch (error) {
         console.log(error);
       }

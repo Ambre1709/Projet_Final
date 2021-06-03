@@ -15,21 +15,25 @@
           </button>
         </div>
         <!-- pour poster un commentaire -->
-        <new-comment @refresh="fetchComments" :id="post.id"></new-comment>
+        <new-comment @refresh="refreshComments" :id="post.id"></new-comment>
       </div>
       <!-- Début des commentaires -->
       <h2>Commentaires :</h2>
-      <div class="card" :key="comment.id" v-for="comment of comments">
-        <p>
-          {{ comment.comment }}
-        </p>
-        <p class="commDe">
-          Publié par {{ comment.User.firstName }} {{ comment.User.lastName }}
-        </p>
-        <div v-if="comment.User.id === me || isAdmin">
-          <button @click.prevent="deleteComment(comment.id)">Supprimer</button>
+      <div ref="comments">
+        <div class="card" :key="comment.id" v-for="comment of comments">
+          <p>
+            {{ comment.comment }}
+          </p>
+          <p class="commDe">
+            Publié par {{ comment.User.firstName }} {{ comment.User.lastName }}
+          </p>
+          <div v-if="comment.User.id === me || isAdmin">
+            <button @click.prevent="deleteComment(comment.id)">
+              Supprimer
+            </button>
+          </div>
+          <!-- Fin des commentaires -->
         </div>
-        <!-- Fin des commentaires -->
       </div>
     </div>
     <div v-else>
@@ -65,6 +69,12 @@ export default {
       } catch (error) {
         console.log("error");
       }
+    },
+    async refreshComments() {
+      await this.fetchComments();
+      this.$refs.comments.scrollIntoView({
+        behavior: "smooth",
+      });
     },
     // Pour charger les commentaires du post
     async fetchComments() {

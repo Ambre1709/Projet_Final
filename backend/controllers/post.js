@@ -19,11 +19,13 @@ exports.createPost = (req, res, next) => {
     .then(() => res.status(201).json({ message: "Message enregistré !" }))
     .catch((error) => res.status(400).json({ error }));
 };
+
 //----------------------------------------------------------------------------------------------------------------------
 //GETALLPOSTS
-exports.getAllPosts = (req, res, next) => {
+exports.getAllPosts = (_req, res) => {
+  //Récupère la list des posts du plus récents aux plus ancien avec User.firstname et User.lastname à partir de la clé étrangère idUser.
   Post.findAll({
-    order: [["updatedAt", "DESC"]],
+    order: [["createdAt", "DESC"]],
     attributes: [
       "id",
       "idUser",
