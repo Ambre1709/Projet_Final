@@ -1,3 +1,23 @@
+[![Openclassrooms](https://1to1progress.fr/wp-content/uploads/2019/05/openclassrooms-e1557761236158.png)](https://openclassrooms.com)
+## Parcours Développeur Web - Projet 7 :
+#### Créer un réseau social d’entreprise
+
+- Scénario : [lien PDF](https://github.com/Ambre1709/Projet_Final/blob/master/scenario.pdf)
+
+#### 🔨 Fait avec
+* Vue.js
+* Javascript 
+* Node.js
+* Express
+* Mysql
+* Sequelize
+#### 🔨 Divers
+* Création API REST
+* Création base de donnée
+* Responsive Design
+
+---
+
 ## 🔨 Clôner le repo
 
 ### 🔧 Ce projet est développé avec VueJS, NodeJS, Express, Sequelize et Mysql
